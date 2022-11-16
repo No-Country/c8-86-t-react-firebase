@@ -1,3 +1,4 @@
+
 import { useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Home from './components/Home/Home'
@@ -10,6 +11,7 @@ import Products from './components/Products/Products'
 import Recipes from './components/Recipes/Recipes'
 
 
+
 function App() {
 
   return (
@@ -18,8 +20,8 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
         <Route path='/' element={<Home />}/>
-        <Route path='/products' element={<Products />}/>
-        <Route path='/recipes' element={<Recipes />} />
+        <Route path='/products/:id' element={<Products/>}></Route>
+        <Route path='/recipe/:id' element={<Recipes/>}></Route>
 
         <Route element={<ProtectedRoutes />}>
           <Route path='/cart' element={<Cart />} />
