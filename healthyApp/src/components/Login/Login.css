@@ -1,0 +1,24 @@
+.Login{
+    border: 1px solid red;
+    width: 100vw;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Login__form{
+    /* border: 1px solid blue; */
+    width: 50%;
+    margin: 3% 0 3% 0;
+}
+
+.Login__form__simple__input{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 3% 0 3% 0;
+}
+
+.Login__form__simple__btn{
+    width: 52px;
+}
