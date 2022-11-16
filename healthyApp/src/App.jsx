@@ -7,6 +7,7 @@ import ProductsItem from './pages/ProductsItem'
 import Profile from './pages/Profile'
 import RecipeDetails from './pages/RecipeDetails'
 import ShoppingCart from './pages/ShoppingCart'
+import SingUp from './pages/SingUp'
 
 function App() {
 
@@ -17,7 +18,7 @@ function App() {
         <Route path='/products/:id' element={<ProductsItem/>}></Route>
         <Route path='/recipe/:id' element={<RecipeDetails/>}></Route>
         <Route path={'/login'} element={<Login/>}></Route>
-        <Route path={'/singUp'} element={<SingUp/>}></Route>
+        <Route path={'/singup'} element={<SingUp/>}></Route>
 
         <Route element={<ProtectedPages/>}>
           <Route path='/profile' element={<Profile/>}></Route>
