@@ -1,3 +1,4 @@
+
 import { useState } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Home from './components/Home/Home'
@@ -11,6 +12,7 @@ import RecipeDetail from './components/Recipes/RecipeDetail'
 import { AuthProvider } from "./context/AuthContext";
 
 
+
 function App() {
 
   return (
@@ -22,6 +24,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/product/:id' element={<ProductDetail />} />
           <Route path='/recipe/:id' element={<RecipeDetail />} />
+
 
           <Route element={<ProtectedRoutes />}>
             <Route path='/cart' element={<Cart />} />
