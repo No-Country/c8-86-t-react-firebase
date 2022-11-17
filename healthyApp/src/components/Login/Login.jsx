@@ -13,7 +13,7 @@ const Login = () => {
         navigate('/')
     }
 
-    return (
+    return ( 
         <div className='Login'>
             <form className='Login__form'>
                 <div className='Login__form__simple'>
@@ -25,11 +25,21 @@ const Login = () => {
                         <label htmlFor="password" className=''>Password</label>
                         <input type="password" className='' placeholder='* * * * * *'/>
                     </div>
+                    <div className='Login__form__simple__div__btn'>
                     <button onClick={loginSubmit} className='Login__form__simple__btn'>
                         Login
                     </button>
+                    <span><button id='btnPassword'>Forget password? </button></span>
+                    </div>
                 </div>
             </form>
+            <div>
+            <div className='container_register'>
+                <p>Don't have an Account</p>
+                <button onClick={() => navigate('/signup')}>Register</button>
+            </div>
+
+            <div className='singln'><a href="#"> Google Singln</a></div> </div>
         </div>
     )
 }

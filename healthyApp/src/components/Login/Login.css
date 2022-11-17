@@ -1,24 +1,91 @@
-.Login{
-    border: 1px solid red;
-    width: 100vw;
-    display:flex;
+.Login, .register{
+    /*border: 1px solid red;*/
+    height: 90vh;
+    display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
-.Login__form{
-    /* border: 1px solid blue; */
-    width: 50%;
-    margin: 3% 0 3% 0;
+.Login__form, .register__form{
+    border: 1px solid rgb(97, 97, 164); 
+    width: 30%;
+    /* margin: 3% 0 3% 0;*/
+    padding: 3%;
 }
 
-.Login__form__simple__input{
+.Login__form__simple__input, .register__form__simple__input{
     display: flex;
     flex-direction: column;
     gap: 10px;
     margin: 3% 0 3% 0;
 }
 
+.Login__form__simple__div__btn {
+    display: flex;
+    justify-content: space-between;
+}
+
+.register__form__simple__btn { 
+    border: none;
+    background:#1C4CD3;
+    padding: 2%;
+    color: white;
+}
+
+.Login__form__simple__div__btn #btnPassword {
+    text-decoration: none;
+    color: #1C4CD3;
+    border: none;
+    background: none;
+}
+
 .Login__form__simple__btn{
     width: 52px;
+    border: none;
+    background: #1C4CD3;
+    color: white;
+    font-weight: 700;
+    padding: 2% 0;
+}
+
+.container_register {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: -90%;
+    width: 280%;
+}
+
+.container_register button {
+    background: none;
+    border: none;
+}
+
+.singln {
+    border:  rgb(97, 97, 164) solid 1px;
+    width: 30%;
+    height: 5%;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    margin-left: -10%;
+}
+
+.singln a {
+    margin: auto;
+    color: black;
+    text-decoration: none;
+}
+
+.containerLogin {
+    width:30%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.containerLogin button {
+    background: none;
+    border: none;
 }
