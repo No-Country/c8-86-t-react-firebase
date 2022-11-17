@@ -1,26 +1,13 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import Header from '../Header/Header'
+import './Home.css'
 
 const Home = () => {
 
-    const navigate =useNavigate()
-
-    const cartOpen = () => {
-        navigate('/cart')
-    }
-    const profileOpen = () =>{
-        navigate('/profile')
-    }
-
     return (
-        <div>
-            Home
-            <button onClick={cartOpen}>
-                Go to Cart
-            </button>
-            <button onClick={profileOpen}>
-                Profile
-            </button>
+        <div className='Home'>
+            <Header/>
+            
         </div>
     )
 }
