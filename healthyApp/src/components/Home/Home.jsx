@@ -3,6 +3,8 @@ import Header from '../Header/Header'
 import './Home.css'
 import { AiOutlineSearch } from "react-icons/ai";
 import CategoryCard from '../CategoryCard/CategoryCard';
+import ProductCard from '../Products/ProductCard/ProductCard';
+import RecommendationCard from '../Products/RecommendationCard/RecommendationCard';
 
 const Home = () => {
 
@@ -36,6 +38,49 @@ const Home = () => {
                     
                 </div>
 
+                <div className='Home__products'>
+                    <div className='card'>
+                        <ProductCard/>
+                    </div>
+                    <div className='card'>
+                        <ProductCard/>
+                    </div>
+                    <div className='card'>
+                        <ProductCard/>
+                    </div>
+                    <div className='card'>
+                        <ProductCard/>
+                    </div>
+                    <div className='card'>
+                        <ProductCard/>
+                    </div>
+                    <div className='card'>
+                        <ProductCard/>
+                    </div>
+                    
+                </div>
+
+                <p className='title__recommendations'>Recomendados para ti</p>
+
+                <div className='Home__recommendations'>
+                    <div className='card'>
+                        <RecommendationCard/>
+                    </div>
+                    <div className='card'>
+                        <RecommendationCard/>
+                    </div>
+                    <div className='card'>
+                        <RecommendationCard/>
+                    </div>
+                    <div className='card'>
+                        <RecommendationCard/>
+                    </div>
+                    <div className='card'>
+                        <RecommendationCard/>
+                    </div>
+                    
+                    
+                </div>
 
             </div>
 
