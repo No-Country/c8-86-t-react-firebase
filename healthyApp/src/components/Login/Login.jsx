@@ -1,46 +1,43 @@
-import React, { useState } from 'react'
+import React  from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
+
 import '../Login/Login.css'
+import User from '../../assets/login/user.svg'
+
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 const Login = () => {
     const navigate = useNavigate()
+    const { handleSubmit } = useForm()
 
-    const { handleSubmit, register, reset } = useForm()
-
-    const loginSubmit = () => {
+    const submit = () => {
         localStorage.setItem('token', 'true')
         navigate('/')
     }
 
     return ( 
-        <div className='Login'>
-            <form className='Login__form'>
-                <div className='Login__form__simple'>
-                    <div className='Login__form__simple__input'>
-                        <label htmlFor="email" className=''>Email</label>
-                        <input type="text" className='' placeholder='email@company.com'/>
-                    </div>
-                    <div className='Login__form__simple__input'>
-                        <label htmlFor="password" className=''>Password</label>
-                        <input type="password" className='' placeholder='* * * * * *'/>
-                    </div>
-                    <div className='Login__form__simple__div__btn'>
-                    <button onClick={loginSubmit} className='Login__form__simple__btn'>
-                        Login
-                    </button>
-                    <span><button id='btnPassword'>Forget password? </button></span>
-                    </div>
+        <Form  className='p-3' onSubmit={handleSubmit(submit)}>
+            <div className='header_Form'>
+                <h1 className='text-start'> Bienvenido de nuevo! </h1>
+                <div className='div_img__user m-auto'>
+                    <img src={User} alt="svg_user" />
                 </div>
-            </form>
-            <div>
-            <div className='container_register'>
-                <p>Don't have an Account</p>
-                <button onClick={() => navigate('/signup')}>Register</button>
             </div>
 
-            <div className='singln'><a href="#"> Google Singln</a></div> </div>
-        </div>
+            <Form.Group className='mt-3' controlId='formBasicEmail'>
+                <Form.Label className='form_label'> Email </Form.Label>
+                <Form.Control className='input' type='email' placeholder='Input Text'/>
+            </Form.Group>
+
+            <Form.Group className='mt-3' controlId='formBasicPassword'>
+                <Form.Label className='form_label'> Contraseña </Form.Label>
+                <Form.Control className='input' type='text' placeholder='* * * *'/>
+            </Form.Group>
+
+            <Button className='btn mt-4' type='submit'> Ingresar </Button>
+        </Form>
     )
 }
 
