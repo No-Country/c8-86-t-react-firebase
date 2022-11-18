@@ -1,6 +1,6 @@
 .ProductCard{
     width: 168px;
-    height: 168px;
+    min-height: 168px;
     border-radius: 14px;
     position: relative;
     background-color: #FAFAFA;
