@@ -1,17 +1,16 @@
 .Home{
-    border: 1px solid blue;
     height: 100vh;
+    position: relative;
 }
 
 .Home__content{
-    
-    height: auto;
+    height: 85vh;
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
     flex-direction: column;
-    margin-left: 8%;
-    margin-top: 8%;
+    padding-left: 8%;
+    padding-top: 8%;
 }
 
 h2{
@@ -24,9 +23,10 @@ h2{
 .Home__search__bar{
     margin-top: 5%;
     border: 1px solid #316F2A;
-    width: 312px;
-    height: 40px;
-    border-radius: 14px;
+    width: 92%;
+    /* height: 40px; */
+    height: 5vh;
+    border-radius: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -59,16 +59,25 @@ h2{
 }
 
 .Home__categories{
+    width:100%;
+    height: 6vh;
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 10px;
     margin-top: 8%;
+    scroll-snap-type: x mandatory;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+.Home__categories .category__card{
+    scroll-snap-align: center;
+    flex: 0 0 30%;
 }
 
 .Home__products{
     width: 100%;
-    height: 100%;
+    height: 25vh;
     margin-top: 8%;
     display: flex;
     flex-direction: row;
@@ -95,7 +104,7 @@ h2{
 
 .Home__recommendations{
     width: 100%;
-    height: 100%;
+    height: 20vh;
     margin-top: 8%;
     display: flex;
     align-items: center;
