@@ -1,18 +1,19 @@
 
 import { Route, Routes } from 'react-router-dom'
-import Home from './components/Home/Home'
+
 import Login from './components/Login/Login'
-import ProtectedRoutes from './components/ProtectedRoutes/ProtectedRoutes'
+import Home from './components/Home/Home'
 import Cart from './components/Cart/Cart'
 import Profile from './components/Profile/Profile'
 import SignUp from './components/SignUp/SignUp'
 import ProductDetail from './components/Products/ProductDetail'
 import RecipeDetail from './components/Recipes/RecipeDetail'
+import ProtectedRoutes from './components/ProtectedRoutes/ProtectedRoutes'
 
 function App() {
 
   return (
-    <div className="App">
+    <div className='App'>
         <Routes >
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
@@ -24,7 +25,6 @@ function App() {
             <Route path='/cart' element={<Cart />} />
             <Route path='/profile' element={<Profile />} />
           </Route>
-
         </Routes>
     </div>
   )
