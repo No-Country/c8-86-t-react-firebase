@@ -28,7 +28,7 @@ const SignUp = () => {
 
             <Form.Group className='mt-3' controlId='formBasicName'>
                 <Form.Label className='form_label'> Nombre </Form.Label>
-                <Form.Control className='input' type='text' placeholder='Input Text' {...register("name")}/>
+                <Form.Control className='input' type='text' placeholder='Input Text' {...register('name')}/>
             </Form.Group>
 
             <Form.Group className='mt-3' controlId='formBasicLastName'>
