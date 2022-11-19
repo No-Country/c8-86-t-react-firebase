@@ -1,28 +1,53 @@
 import React from 'react'
 import './Header.css'
-import { AiOutlineMenu,AiOutlineShoppingCart } from "react-icons/ai";
-import {useNavigate} from 'react-router-dom'
+import { AiOutlineMenu, AiOutlineShoppingCart , AiOutlineClose, AiOutlineUser} from "react-icons/ai";
+import { useNavigate } from 'react-router-dom'
 
-const Header = () => {
+const Header = ({ setMenuIsShow, menuIsShow , setRecipesIsClick,setProductIsClick}) => {
 
     const navigate = useNavigate()
 
-    const goToCart = () =>{
+    const goToCart = () => {
         navigate('/cart')
     }
 
+    const toggleMenu = () => {
+        setMenuIsShow(!menuIsShow)
+        setRecipesIsClick(false)
+        setProductIsClick(false)
+    }
+
+    const goToProfile = () =>{
+        navigate('/profile')
+    }
 
 
 
     return (
         <div className='Header'>
-            <button className='Header__btn left'>
-                <AiOutlineMenu />
-            </button>
-            <h3>saine</h3>
-            <button className='Header__btn right' onClick={goToCart}>
-                <AiOutlineShoppingCart />
-            </button>
+            {
+                menuIsShow ?
+                    <>
+                        <button className={`Header__btn-${menuIsShow} left`} onClick={toggleMenu}>
+                            <AiOutlineClose />
+                        </button>
+                        <h3>saine</h3>
+                        <button className={`Header__btn-${menuIsShow} right`} onClick={goToProfile}>
+                            <AiOutlineUser />
+                        </button>
+                    </>
+                    :
+                    <>
+                        <button className={`Header__btn-${menuIsShow} left`} onClick={toggleMenu}>
+                            <AiOutlineMenu />
+                        </button>
+                        <h3>saine</h3>
+                        <button className={`Header__btn-${menuIsShow} right`} onClick={goToCart}>
+                            <AiOutlineShoppingCart />
+                        </button>
+                    </>
+            }
+
         </div>
     )
 }
