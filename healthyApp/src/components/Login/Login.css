@@ -1,91 +1,59 @@
-.Login, .register{
-    /*border: 1px solid red;*/
-    height: 90vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+.header_Form {
+    width: 100%;
+    text-align: center;
 }
 
-.Login__form, .register__form{
-    border: 1px solid rgb(97, 97, 164); 
-    width: 30%;
-    /* margin: 3% 0 3% 0;*/
-    padding: 3%;
+.header_Form img { 
+    width: 30%; 
+    opacity: 0.5;
 }
 
-.Login__form__simple__input, .register__form__simple__input{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin: 3% 0 3% 0;
-}
-
-.Login__form__simple__div__btn {
-    display: flex;
-    justify-content: space-between;
-}
-
-.register__form__simple__btn { 
-    border: none;
-    background:#1C4CD3;
+.header_Form .div_img__user {
+    width: 40%;
+    background: #E6E6E6;
     padding: 2%;
-    color: white;
 }
 
-.Login__form__simple__div__btn #btnPassword {
-    text-decoration: none;
-    color: #1C4CD3;
-    border: none;
-    background: none;
-}
-
-.Login__form__simple__btn{
-    width: 52px;
-    border: none;
-    background: #1C4CD3;
-    color: white;
-    font-weight: 700;
-    padding: 2% 0;
-}
-
-.container_register {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    margin-left: -90%;
-    width: 280%;
-}
-
-.container_register button {
-    background: none;
-    border: none;
-}
-
-.singln {
-    border:  rgb(97, 97, 164) solid 1px;
-    width: 30%;
-    height: 5%;
-    display: flex;
-    align-items: center;
+.form_label {
+    background: white;
     position: absolute;
-    margin-left: -10%;
+    margin-top: -1%;
+    margin-left: 3%;
+    font-size: 14px;
+    padding: 0 1%;
 }
 
-.singln a {
-    margin: auto;
-    color: black;
-    text-decoration: none;
+.input {
+    height: 54px;
+    border: 1px solid #666666 !important;
 }
 
-.containerLogin {
-    width:30%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+.btn {
+    background: #606060 !important;
+    border: none !important;
+    border-radius: 4px !important;
+    width: 135px;
+    margin-left: calc(100% - 73%);
+    text-transform: uppercase;
+    font-size: 16px;
 }
 
-.containerLogin button {
-    background: none;
-    border: none;
+/*! Media Queries for label */
+
+@media screen and (max-width: 936px) {
+    .form_label { margin-top: -1%; }
+}
+
+@media screen and (max-width: 760px) {
+    .form_label { margin-top: -1.8%; }
+}
+
+@media screen and (max-width: 620px) {
+    .form_label { margin-top: -2.1%; }
+}
+
+@media screen and (max-width: 510px) {
+    .form_label { margin-top: -3%; }
 }
