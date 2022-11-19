@@ -1,12 +1,10 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
+import Form from 'react-bootstrap/Form';
 
 import '../SignUp/singUp.css'
 import User from '../../assets/login/user.svg'
-
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
 
 const SignUp = () => {
     const navigate = useNavigate()
