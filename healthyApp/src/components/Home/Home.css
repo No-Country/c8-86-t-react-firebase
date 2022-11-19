@@ -71,8 +71,11 @@ h2{
 }
 
 .Home__categories .category__card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     scroll-snap-align: center;
-    flex: 0 0 30%;
+    flex: 0 0 35%;
 }
 
 .Home__products{
@@ -88,7 +91,10 @@ h2{
     overflow-y: hidden;
 }
 
-.Home__products .card{
+.Home__products .products__card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     scroll-snap-align: center;
     flex: 0 0 20%;
 
@@ -114,7 +120,10 @@ h2{
     overflow-y: hidden;
 }
 
-.Home__recommendations .card{
+.Home__recommendations .recommendations__card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     scroll-snap-align: center;
     flex: 0 0 10%;
 }

@@ -63,22 +63,22 @@ const Home = () => {
                 </div>
 
                 <div className='Home__products'>
-                    <div className='card'>
+                    <div className='products__card'>
                         <ProductCard />
                     </div>
-                    <div className='card'>
+                    <div className='products__card'>
                         <ProductCard />
                     </div>
-                    <div className='card'>
+                    <div className='products__card'>
                         <ProductCard />
                     </div>
-                    <div className='card'>
+                    <div className='products__card'>
                         <ProductCard />
                     </div>
-                    <div className='card'>
+                    <div className='products__card'>
                         <ProductCard />
                     </div>
-                    <div className='card'>
+                    <div className='products__card'>
                         <ProductCard />
                     </div>
 
@@ -87,19 +87,19 @@ const Home = () => {
                 <p className='title__recommendations'>Recomendados para ti</p>
 
                 <div className='Home__recommendations'>
-                    <div className='card'>
+                    <div className='recommendations__card'>
                         <RecommendationCard />
                     </div>
-                    <div className='card'>
+                    <div className='recommendations__card'>
                         <RecommendationCard />
                     </div>
-                    <div className='card'>
+                    <div className='recommendations__card'>
                         <RecommendationCard />
                     </div>
-                    <div className='card'>
+                    <div className='recommendations__card'>
                         <RecommendationCard />
                     </div>
-                    <div className='card'>
+                    <div className='recommendations__card'>
                         <RecommendationCard />
                     </div>
 
