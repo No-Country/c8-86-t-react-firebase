@@ -5,16 +5,16 @@ import { useForm } from 'react-hook-form'
 import '../Login/Login.css'
 import User from '../../assets/login/user.svg'
 
-import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 const Login = () => {
     const navigate = useNavigate()
-    const { handleSubmit } = useForm()
+    const { handleSubmit, register } = useForm()
 
-    const submit = () => {
+    const submit = (data) => {
         localStorage.setItem('token', 'true')
         navigate('/')
+        console.log(data)
     }
 
     return ( 
@@ -28,15 +28,15 @@ const Login = () => {
 
             <Form.Group className='mt-3' controlId='formBasicEmail'>
                 <Form.Label className='form_label'> Email </Form.Label>
-                <Form.Control className='input' type='email' placeholder='Input Text'/>
+                <Form.Control className='input' type='email' placeholder='Input Text' {...register('email')}/>
             </Form.Group>
 
             <Form.Group className='mt-3' controlId='formBasicPassword'>
                 <Form.Label className='form_label'> Contraseña </Form.Label>
-                <Form.Control className='input' type='text' placeholder='* * * *'/>
+                <Form.Control className='input' type='password' placeholder='* * * *' {...register('password')}/>
             </Form.Group>
 
-            <Button className='btn mt-4' type='submit'> Ingresar </Button>
+            <input className='btn mt-4' type='submit' value='Ingresar'/>
         </Form>
     )
 }
