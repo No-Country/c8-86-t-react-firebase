@@ -5,6 +5,7 @@ import { AiOutlineFacebook, AiOutlineInstagram, AiOutlineWhatsApp } from "react-
 const Footer = () => {
     return (
         <div className='Footer'>
+            <div className='border__top'></div>
             <h4>Siguenos en nuestras redes</h4>
             <div className='Footer__actions'>
                 <button>
