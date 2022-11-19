@@ -11,14 +11,14 @@ const SignUp = () => {
     
     const { handleSubmit, register } = useForm()
 
-    const onSubmit = (data) => {
+    const submit = (data) => {
         navigate('/login')
         console.log(data);
     }
 
     return (
         <>
-        <Form  className='p-3' onSubmit={handleSubmit(onSubmit)}>
+        <Form  className='p-3' onSubmit={handleSubmit(submit)}>
             <div className='header_Form'>
                 <h1 className='text-start'> Bienvenido! </h1>
                 <div className='div_img__user m-auto'>
