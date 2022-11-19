@@ -10,11 +10,20 @@
     flex-direction: column;
 }
 
+.border__top{
+    content: '';
+    position:absolute;
+    width: 90%;
+    border: 1px solid rgb(196,196,208,0.9);
+    box-shadow: 0px 2px 5px 0px rgba(73, 73, 104,0.2);
+    
+}
+
 .Footer h4{
     margin: 0;
     font-size: 14px;
     font-weight: 400;
-    padding-top: 4px;
+    padding-top: 10px;
 }
 
 .Footer .Footer__actions{
