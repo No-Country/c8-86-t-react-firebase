@@ -10,6 +10,7 @@ import RecipeDetail from "./components/Recipes/RecipeDetail";
 import ProtectedRoutes from "./components/ProtectedRoutes/ProtectedRoutes";
 import { AuthProvider } from "./context/AuthContext";
 
+
 function App() {
     return (
         <div className='App'>
