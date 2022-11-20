@@ -1,0 +1,32 @@
+.Menu-false{
+    height: 0;
+    visibility: hidden;
+
+}
+
+.Menu-true{
+    visibility: visible;
+    height: 94vh;
+    z-index: 6;
+    background-color: #F4F8EC;
+}
+
+.Menu-false ,.Menu-true{
+    width: 100%;
+    position: absolute;
+    transition: height 0.5s ease-in;
+}
+
+.Menu-false > div{
+    opacity: 0;
+}
+
+.Menu-true > div {
+    opacity: 1;
+    transition: opacity 0.6s ease-in;
+}
+
+.item__dropdown{
+    width: 90%;
+    margin-left:10%;
+}
