@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+.header_Form {
+    width: 100%;
+    text-align: center;
+}
+
+.header_Form img { 
+    width: 30%; 
+    opacity: 0.5;
+}
+
+.header_Form .div_img__user {
+    width: 40%;
+    background: #E6E6E6;
+    padding: 2%;
+}
+
+.form_label {
+    background: white;
+    position: absolute;
+    margin-top: -1%;
+    margin-left: 3%;
+    font-size: 14px;
+    padding: 0 1%;
+}
+
+.input {
+    height: 54px;
+    border: 1px solid #666666 !important;
+}
+
+.btn {
+    background: #606060 !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 4px !important;
+    width: 135px;
+    margin-left: calc(100% - 73%);
+    text-transform: uppercase;
+    font-size: 16px;
+}
+
+.show svg { margin-left: -2rem; }
+
+/*! Media Queries for label */
+
+@media screen and (max-width: 936px) {
+    .form_label { margin-top: -1%; }
+}
+
+@media screen and (max-width: 760px) {
+    .form_label { margin-top: -1.8%; }
+}
+
+@media screen and (max-width: 620px) {
+    .form_label { margin-top: -2.1%; }
+}
+
+@media screen and (max-width: 510px) {
+    .form_label { margin-top: -3%; }
+}
