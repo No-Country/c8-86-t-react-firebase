@@ -4,8 +4,6 @@ import { useForm } from 'react-hook-form'
 
 import '../Login/Login.css'
 import User from '../../assets/login/user.svg'
-import ShowPass from '../../assets/login/showPass.svg'
-import NotShowPass from '../../assets/login/notShow.svg'
 
 import Form from 'react-bootstrap/Form';
 
