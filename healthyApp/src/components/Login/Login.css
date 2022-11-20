@@ -41,6 +41,8 @@
     font-size: 16px;
 }
 
+.show svg { margin-left: -2rem; }
+
 /*! Media Queries for label */
 
 @media screen and (max-width: 936px) {
