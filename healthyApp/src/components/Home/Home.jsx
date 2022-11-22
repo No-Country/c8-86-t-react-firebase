@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../Header/Header'
 import './Home.css'
 import { AiOutlineSearch } from "react-icons/ai";
@@ -11,8 +11,13 @@ import { setProduct } from '../../store/slices/product.slice';
 import { setRecipe } from '../../store/slices/recipe.slice';
 import { useDispatch, useSelector } from 'react-redux';
 import { BiArrowBack } from "react-icons/bi";
+import { useAuth } from '../../context/AuthContext';
+import Profile from '../Profile/Profile';
 
 const Home = () => {
+
+
+
 
     const dispatch = useDispatch()
 
@@ -29,19 +34,30 @@ const Home = () => {
     const productToggle = () => {
         setProductIsClick(!productIsClick)
         setRecipesIsClick(false)
+        setProfileIsShow(false)
     }
     const recipesToggle = () => {
         setProductIsClick(false)
         setRecipesIsClick(!recipesIsClick)
+        setProfileIsShow(false)
     }
 
-    const goBack=()=>{
-        const showProduct=()=> dispatch(setProduct(''))
-        const showRecipe=()=> dispatch(setRecipe(''))
+    const goBack = () => {
+        const showProduct = () => dispatch(setProduct(''))
+        const showRecipe = () => dispatch(setRecipe(''))
         showProduct()
         showRecipe()
     }
 
+    //Profile
+
+    const [profileIsShow, setProfileIsShow] = useState(false)
+
+    const profileToggle = () => {
+        setProductIsClick(false)
+        setRecipesIsClick(!recipesIsClick)
+        setProfileIsShow(!profileIsShow)
+    }
 
     return (
         <div className='Home'>
@@ -56,128 +72,138 @@ const Home = () => {
                 setMenuIsShow={setMenuIsShow}
                 productToggle={productToggle}
                 recipesToggle={recipesToggle}
+                profileToggle={profileToggle}
                 productIsClick={productIsClick}
                 recipesIsClick={recipesIsClick}
             />
-            <div className='Home__content'>
-                <h2>Encontremos lo que
-                    necesitas!</h2>
+            {
+                profileIsShow &&
+                <Profile />
 
-                <form action="search" className='Home__search__bar'>
-                    <input type="text" placeholder='¿Qué está buscando?' />
-                    <button className='Home__search__bar__btn'>
-                        <AiOutlineSearch />
-                    </button>
-                </form>
+            }
+            {
+                !profileIsShow &&
 
-                {
-                    productClick &&
-                    <>
-                        <button onClick={goBack}><BiArrowBack/></button>
-                        <h2>{productClick}</h2>
-                    </>
+                <div className='Home__content'>
+                    <h2>Encontremos lo que
+                        necesitas!</h2>
 
-                }
-                {
-                    recipeClick &&
-                    <>
-                        <button onClick={goBack}><BiArrowBack/></button>
-                        <h2>{recipeClick}</h2>
-                    </>
+                    <form action="search" className='Home__search__bar'>
+                        <input type="text" placeholder='¿Qué está buscando?' />
+                        <button className='Home__search__bar__btn'>
+                            <AiOutlineSearch />
+                        </button>
+                    </form>
 
-                }
+                    {
+                        productClick &&
+                        <>
+                            <button onClick={goBack}><BiArrowBack /></button>
+                            <h2>{productClick}</h2>
+                        </>
 
-                {
-                    (productClick === '' && recipeClick === '') &&
-                    <>
-                        <div className='Home__categories'>
-                            <div className='category__card'>
-                                <CategoryCard
-                                    name={'Más populares'}
-                                    state={'active'}
-                                />
-                            </div>
-                            <div className='category__card'>
-                                <CategoryCard
-                                    name={'Ofertas'}
-                                    state={'inactive'}
-                                />
-                            </div>
-                            <div className='category__card'>
-                                <CategoryCard
-                                    name={'Novedades'}
-                                    state={'inactive'}
-                                />
-                            </div>
-                            <div className='category__card'>
-                                <CategoryCard
-                                    name={'Snacks'}
-                                    state={'inactive'}
-                                />
-                            </div>
-                            <div className='category__card'>
-                                <CategoryCard
-                                    name={'Bebidas'}
-                                    state={'inactive'}
-                                />
-                            </div>
-                            <div className='category__card'>
-                                <CategoryCard
-                                    name={'Ingredientes'}
-                                    state={'inactive'}
-                                />
-                            </div>
-                        </div>
+                    }
+                    {
+                        recipeClick &&
+                        <>
+                            <button onClick={goBack}><BiArrowBack /></button>
+                            <h2>{recipeClick}</h2>
+                        </>
 
-                        <div className='Home__products'>
-                            <div className='products__card'>
-                                <ProductCard />
-                            </div>
-                            <div className='products__card'>
-                                <ProductCard />
-                            </div>
-                            <div className='products__card'>
-                                <ProductCard />
-                            </div>
-                            <div className='products__card'>
-                                <ProductCard />
-                            </div>
-                            <div className='products__card'>
-                                <ProductCard />
-                            </div>
-                            <div className='products__card'>
-                                <ProductCard />
+                    }
+
+                    {
+                        (productClick === '' && recipeClick === '') &&
+                        <>
+                            <div className='Home__categories'>
+                                <div className='category__card'>
+                                    <CategoryCard
+                                        name={'Más populares'}
+                                        state={'active'}
+                                    />
+                                </div>
+                                <div className='category__card'>
+                                    <CategoryCard
+                                        name={'Ofertas'}
+                                        state={'inactive'}
+                                    />
+                                </div>
+                                <div className='category__card'>
+                                    <CategoryCard
+                                        name={'Novedades'}
+                                        state={'inactive'}
+                                    />
+                                </div>
+                                <div className='category__card'>
+                                    <CategoryCard
+                                        name={'Snacks'}
+                                        state={'inactive'}
+                                    />
+                                </div>
+                                <div className='category__card'>
+                                    <CategoryCard
+                                        name={'Bebidas'}
+                                        state={'inactive'}
+                                    />
+                                </div>
+                                <div className='category__card'>
+                                    <CategoryCard
+                                        name={'Ingredientes'}
+                                        state={'inactive'}
+                                    />
+                                </div>
                             </div>
 
-                        </div>
+                            <div className='Home__products'>
+                                <div className='products__card'>
+                                    <ProductCard />
+                                </div>
+                                <div className='products__card'>
+                                    <ProductCard />
+                                </div>
+                                <div className='products__card'>
+                                    <ProductCard />
+                                </div>
+                                <div className='products__card'>
+                                    <ProductCard />
+                                </div>
+                                <div className='products__card'>
+                                    <ProductCard />
+                                </div>
+                                <div className='products__card'>
+                                    <ProductCard />
+                                </div>
 
-                        <p className='title__recommendations'>Recomendados para ti</p>
-
-                        <div className='Home__recommendations'>
-                            <div className='recommendations__card'>
-                                <RecommendationCard />
                             </div>
-                            <div className='recommendations__card'>
-                                <RecommendationCard />
+
+                            <p className='title__recommendations'>Recomendados para ti</p>
+
+                            <div className='Home__recommendations'>
+                                <div className='recommendations__card'>
+                                    <RecommendationCard />
+                                </div>
+                                <div className='recommendations__card'>
+                                    <RecommendationCard />
+                                </div>
+                                <div className='recommendations__card'>
+                                    <RecommendationCard />
+                                </div>
+                                <div className='recommendations__card'>
+                                    <RecommendationCard />
+                                </div>
+                                <div className='recommendations__card'>
+                                    <RecommendationCard />
+                                </div>
+
+
                             </div>
-                            <div className='recommendations__card'>
-                                <RecommendationCard />
-                            </div>
-                            <div className='recommendations__card'>
-                                <RecommendationCard />
-                            </div>
-                            <div className='recommendations__card'>
-                                <RecommendationCard />
-                            </div>
-
-
-                        </div>
-                    </>
-                }
+                        </>
+                    }
 
 
 
-            </div>
+                </div>
+            }
 
             <Footer />
 

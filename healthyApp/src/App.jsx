@@ -24,7 +24,6 @@ function App() {
 
                     <Route element={<ProtectedRoutes />}>
                         <Route path='/cart' element={<Cart />} />
-                        <Route path='/profile' element={<Profile />} />
                     </Route>
                 </Routes>
             </AuthProvider>

@@ -24,7 +24,7 @@ const Register = () => {
         setError("");
         try {
             await signUp(user.email, user.password);
-            navigate("/");
+            navigate("/login");
         } catch (error) {
             //if(error.code === "auth/internal-error")
             //setError('Correo invalido');
@@ -52,7 +52,7 @@ const Register = () => {
                 </div>
 
                 <Form.Group className='mt-3' controlId='formBasicName'>
-                    <Form.Label className='form_label'> Nombre </Form.Label>
+                    <Form.Label className='form_label'> Nombre y Apellido </Form.Label>
                     <Form.Control
                         className='input'
                         type='text'
@@ -61,14 +61,14 @@ const Register = () => {
                     />
                 </Form.Group>
 
-                <Form.Group className='mt-3' controlId='formBasicLastName'>
+                {/* <Form.Group className='mt-3' controlId='formBasicLastName'>
                     <Form.Label className='form_label'> Apellido </Form.Label>
                     <Form.Control
                         className='input'
                         type='text'
                         placeholder='Input Text'
                     />
-                </Form.Group>
+                </Form.Group> */}
 
                 <Form.Group className='mt-3' controlId='formBasicEmail'>
                     <Form.Label className='form_label'> Mail </Form.Label>

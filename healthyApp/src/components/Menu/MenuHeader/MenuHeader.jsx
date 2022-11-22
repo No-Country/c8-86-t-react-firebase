@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './MenuHeader.css'
 
-const MenuHeader = ({name,setMenuIsShow,productToggle,recipesToggle}) => {
+const MenuHeader = ({name,setMenuIsShow,productToggle,recipesToggle,profileToggle}) => {
 
     const navigate = useNavigate()
 
@@ -14,10 +14,12 @@ const MenuHeader = ({name,setMenuIsShow,productToggle,recipesToggle}) => {
             navigate('/signup')
         }
         else if(name==='Perfil'){
-            navigate('/profile')
+            profileToggle()
+            setMenuIsShow(false)
         }
         else if(name==='Productos'){
             productToggle()
+            
         }
         else if(name==='Recetas'){
             recipesToggle()
