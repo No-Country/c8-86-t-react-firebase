@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import './Menu.css'
 import MenuDropDown from './MenuDropDown/MenuDropDown'
 import MenuHeader from './MenuHeader/MenuHeader'
+import { useAuth } from '../../context/AuthContext'
 
 
-const Menu = ({ menuIsShow, setMenuIsShow ,productToggle,recipesToggle,productIsClick,recipesIsClick}) => {
+const Menu = ({ menuIsShow, setMenuIsShow ,productToggle,recipesToggle,profileToggle,productIsClick,recipesIsClick}) => {
 
+    const {user,loading} =useAuth();
 
 
     return (
@@ -84,7 +86,7 @@ const Menu = ({ menuIsShow, setMenuIsShow ,productToggle,recipesToggle,productIs
                 }
             </div>
             {
-                localStorage.getItem('token') === null ?
+                (!user) ?
                     <>
                         <div className='Menu__header'>
                             <MenuHeader
@@ -104,6 +106,7 @@ const Menu = ({ menuIsShow, setMenuIsShow ,productToggle,recipesToggle,productIs
                         <MenuHeader
                             name={'Perfil'}
                             setMenuIsShow={setMenuIsShow}
+                            profileToggle={profileToggle}
                         />
                     </div>
             }
