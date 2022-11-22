@@ -17,7 +17,7 @@ const Login = () => {
         email: "",
         password: "",
     });
-    const { login, loginWithGoogle, resetPassword } = useAuth();
+    const { login, loginWithGoogle, resetPassword, logOut } = useAuth();
     const [error, setError] = useState();
 
     /* const submit = (data) => {
@@ -59,6 +59,11 @@ const Login = () => {
         } catch (error) {
             setError(error.message);
         }
+    };
+    
+     const handleLogOut = async () => {
+        logOut();
+        console.log("logOut");
     };
 
     return (
@@ -136,6 +141,7 @@ const Login = () => {
                 No tiene cuenta? <Link to='/signup'>Registrese</Link>
             </p>
             <button onClick={handleGoogleSignIn}>Google SignIn</button>
+            <button onClick={handleLogOut}>Logout</button>
         </>
     );
 };
