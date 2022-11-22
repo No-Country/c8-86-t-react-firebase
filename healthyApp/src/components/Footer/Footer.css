@@ -8,6 +8,7 @@
     gap: 5px;
     align-items: center;
     flex-direction: column;
+    z-index: 4;
 }
 
 .border__top{

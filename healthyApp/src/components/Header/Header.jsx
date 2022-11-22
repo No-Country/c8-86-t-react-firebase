@@ -3,7 +3,7 @@ import './Header.css'
 import { AiOutlineMenu, AiOutlineShoppingCart , AiOutlineClose, AiOutlineUser} from "react-icons/ai";
 import { useNavigate } from 'react-router-dom'
 
-const Header = ({ setMenuIsShow, menuIsShow , setRecipesIsClick,setProductIsClick}) => {
+const Header = ({ setMenuIsShow, menuIsShow , setRecipesIsClick,setProductIsClick,setProfileIsShow,profileIsShow}) => {
 
     const navigate = useNavigate()
 
@@ -18,7 +18,8 @@ const Header = ({ setMenuIsShow, menuIsShow , setRecipesIsClick,setProductIsClic
     }
 
     const goToProfile = () =>{
-        navigate('/profile')
+        setProfileIsShow(true)
+        toggleMenu()
     }
 
 

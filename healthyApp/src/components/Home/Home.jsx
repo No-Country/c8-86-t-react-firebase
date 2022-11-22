@@ -32,14 +32,18 @@ const Home = () => {
     const [recipesIsClick, setRecipesIsClick] = useState(false)
 
     const productToggle = () => {
+        setFavProductsIsShow(false)
         setProductIsClick(!productIsClick)
         setRecipesIsClick(false)
         setProfileIsShow(false)
+        setFavRecipesIsShow(false)
     }
     const recipesToggle = () => {
+        setFavProductsIsShow(false)
         setProductIsClick(false)
         setRecipesIsClick(!recipesIsClick)
         setProfileIsShow(false)
+        setFavRecipesIsShow(false)
     }
 
     const goBack = () => {
@@ -47,6 +51,9 @@ const Home = () => {
         const showRecipe = () => dispatch(setRecipe(''))
         showProduct()
         showRecipe()
+        setProfileIsShow(false)
+        setFavProductsIsShow(false)
+        setFavRecipesIsShow(false)
     }
 
     //Profile
@@ -54,9 +61,33 @@ const Home = () => {
     const [profileIsShow, setProfileIsShow] = useState(false)
 
     const profileToggle = () => {
+        setFavProductsIsShow(false)
         setProductIsClick(false)
-        setRecipesIsClick(!recipesIsClick)
+        setRecipesIsClick(false)
         setProfileIsShow(!profileIsShow)
+        setFavRecipesIsShow(false)
+    }
+
+    //fav products
+
+    const [favProductsIsShow, setFavProductsIsShow] = useState(false)
+
+    const toggleFavsProducts = () => {
+        setFavRecipesIsShow(false)
+        setFavProductsIsShow(!favProductsIsShow)
+        setProductIsClick(false)
+        setRecipesIsClick(false)
+        setProfileIsShow(false)
+    }
+
+    const [favRecipesIsShow, setFavRecipesIsShow] = useState(false)
+
+    const toggleFavsRecipes = () => {
+        setFavRecipesIsShow(!favRecipesIsShow)
+        setFavProductsIsShow(false)
+        setProductIsClick(false)
+        setRecipesIsClick(false)
+        setProfileIsShow(false)
     }
 
     return (
@@ -66,6 +97,8 @@ const Home = () => {
                 menuIsShow={menuIsShow}
                 setProductIsClick={setProductIsClick}
                 setRecipesIsClick={setRecipesIsClick}
+                setProfileIsShow={setProfileIsShow}
+                profileIsShow={profileIsShow}
             />
             <Menu
                 menuIsShow={menuIsShow}
@@ -78,11 +111,28 @@ const Home = () => {
             />
             {
                 profileIsShow &&
-                <Profile />
+                <Profile
+                    toggleFavsProducts={toggleFavsProducts}
+                    toggleFavsRecipes={toggleFavsRecipes}
+                />
 
             }
             {
-                !profileIsShow &&
+                favProductsIsShow &&
+                <>
+                    <button onClick={goBack}><BiArrowBack /></button>
+                    <h2>Productos Favoritos</h2>
+                </>
+            }
+            {
+                favRecipesIsShow &&
+                <>
+                    <button onClick={goBack}><BiArrowBack /></button>
+                    <h2>Recipes Favoritos</h2>
+                </>
+            }
+            {
+                (!profileIsShow && !favProductsIsShow && !favRecipesIsShow) &&
 
                 <div className='Home__content'>
                     <h2>Encontremos lo que
