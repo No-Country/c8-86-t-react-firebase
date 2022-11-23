@@ -2,3 +2,7 @@
     border: none;
     background-color: transparent;
 }
+
+.MenuHeader > span {
+    margin-left: 16px;
+}
