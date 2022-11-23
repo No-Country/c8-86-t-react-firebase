@@ -5,22 +5,25 @@ import MenuHeader from './MenuHeader/MenuHeader'
 import { useAuth } from '../../context/AuthContext'
 
 
-const Menu = ({ menuIsShow, setMenuIsShow ,productToggle,recipesToggle,profileToggle,productIsClick,recipesIsClick}) => {
+const Menu = ({ menuIsShow, setMenuIsShow, productToggle, recipesToggle, profileToggle, productIsClick, recipesIsClick }) => {
 
-    const {user,loading} =useAuth();
+    const { user, loading } = useAuth();
 
 
     return (
         <div className={`Menu-${menuIsShow}`}>
-            <div className='Menu__header'>
-                <MenuHeader
-                    name={'Productos'}
-                    setMenuIsShow={setMenuIsShow}
-                    productToggle={productToggle}
-                />
+            <div className='Menu__header '>
+                <div className='Menu__category'>
+                    <MenuHeader
+                        name={'Productos'}
+                        setMenuIsShow={setMenuIsShow}
+                        productToggle={productToggle}
+                    />
+                </div>
+
                 {
                     productIsClick &&
-                    <>
+                    <div className='dropdown'>
                         <div className='item__dropdown'>
                             <MenuDropDown
                                 name={'Snacks'}
@@ -49,18 +52,20 @@ const Menu = ({ menuIsShow, setMenuIsShow ,productToggle,recipesToggle,profileTo
                                 setMenuIsShow={setMenuIsShow}
                             />
                         </div>
-                    </>
+                    </div>
                 }
             </div>
-            <div className='Menu__header'>
-                <MenuHeader
-                    name={'Recetas'}
-                    setMenuIsShow={setMenuIsShow}
-                    recipesToggle={recipesToggle}
-                />
+            <div className='Menu__header '>
+                <div className='Menu__category'>
+                    <MenuHeader
+                        name={'Recetas'}
+                        setMenuIsShow={setMenuIsShow}
+                        recipesToggle={recipesToggle}
+                    />
+                </div>
                 {
                     recipesIsClick &&
-                    <>
+                    <div className='dropdown'>
                         <div className='item__dropdown'>
                             <MenuDropDown
                                 name={'Rápidas y sencillas'}
@@ -82,32 +87,41 @@ const Menu = ({ menuIsShow, setMenuIsShow ,productToggle,recipesToggle,profileTo
                                 setMenuIsShow={setMenuIsShow}
                             />
                         </div>
-                    </>
+                    </div>
                 }
             </div>
             {
                 (!user) ?
                     <>
-                        <div className='Menu__header'>
-                            <MenuHeader
-                                name={'Iniciar Sesión'}
-                                setMenuIsShow={setMenuIsShow}
-                            />
+                        <div className='Menu__header '>
+                            <div className='Menu__category'>
+                                <MenuHeader
+                                    name={'Iniciar Sesión'}
+                                    setMenuIsShow={setMenuIsShow}
+                                />
+                            </div>
+
                         </div>
-                        <div className='Menu__header'>
-                            <MenuHeader
-                                name={'Registrarse'}
-                                setMenuIsShow={setMenuIsShow}
-                            />
+                        <div className='Menu__header '>
+                            <div className='Menu__category'>
+                                <MenuHeader
+                                    name={'Registrarse'}
+                                    setMenuIsShow={setMenuIsShow}
+                                />
+                            </div>
+
                         </div>
                     </>
                     :
                     <div className='Menu__header'>
-                        <MenuHeader
-                            name={'Perfil'}
-                            setMenuIsShow={setMenuIsShow}
-                            profileToggle={profileToggle}
-                        />
+                        <div className='Menu__category'>
+                            <MenuHeader
+                                name={'Perfil'}
+                                setMenuIsShow={setMenuIsShow}
+                                profileToggle={profileToggle}
+                            />
+                        </div>
+
                     </div>
             }
 
