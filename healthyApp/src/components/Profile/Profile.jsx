@@ -1,31 +1,31 @@
 import React, { useState } from 'react'
-import {useAuth} from '../../context/AuthContext'
+import { useAuth } from '../../context/AuthContext'
 import Header from '../../components/Header/Header'
 import { Navigate, useNavigate } from 'react-router-dom'
 import User from '../../assets/login/user.svg'
-import  './Profile.css'
+import './Profile.css'
 
-const Profile = ({toggleFavsProducts,toggleFavsRecipes}) => {
+const Profile = ({ toggleFavsProducts, toggleFavsRecipes }) => {
 
-    const {user,loading,logOut} = useAuth()
+    const { user, loading, logOut } = useAuth()
     console.log(user)
 
     //function logOut
-    const logOutFunction =( )=>{
+    const logOutFunction = () => {
         logOut()
     }
 
     //funcion desplegar favoritos
     const [favsIsShow, setFavsIsShow] = useState(false)
-    const toggleFavs=()=>{
+    const toggleFavs = () => {
         setFavsIsShow(!favsIsShow)
     }
 
     //function favoritosProductos
 
-    
 
-    if(user!=null){
+
+    if (user != null) {
         return (
             <div className='Profile'>
                 <div className='Profile__header mt-3'>
@@ -36,38 +36,49 @@ const Profile = ({toggleFavsProducts,toggleFavsRecipes}) => {
                 </div>
                 <div className='Profile__menu mt-3'>
                     <button className='Profile__menu__item' onClick={toggleFavs}>
-                        <span className='ms-2'>Favoritos</span>
-                    </button>
-                    {
+                        <div className='Profile__menu__title'>
+                            <span className='ms-2'>Favoritos</span>
+                        </div>
+                        {
                             favsIsShow &&
-                                <div className='Profile__menu__dropdown'>
-                                    <button className='Profile__menu__dropdown__item' onClick={toggleFavsProducts}>
-                                        Productos
-                                    </button>
-                                    <button className='Profile__menu__dropdown__item' onClick={toggleFavsRecipes}>
-                                        Recetas
-                                    </button>
-                                </div>
-                    }
+                            <div className='Profile__menu__dropdown mb-2'>
+                                <button className='Profile__menu__dropdown__item' onClick={toggleFavsProducts}>
+                                    <span className='ms-3'>Productos</span>
+                                </button>
+                                <button className='Profile__menu__dropdown__item' onClick={toggleFavsRecipes}>
+                                    <span className='ms-3'>Recetas</span>
+                                </button>
+                            </div>
+                        }
+                    </button>
+
                     <button className='Profile__menu__item disabled'>
-                        <span className='ms-2'>Medios de pago - Deshabilitado</span>
+                        <div className='Profile__menu__title'>
+                            <span className='ms-2'>Medios de pago - Deshabilitado</span>
+                        </div>
                     </button>
                     <button className='Profile__menu__item disabled'>
-                        <span className='ms-2'>Editar Perfil - Deshabilitado</span>
+                        <div className='Profile__menu__title'>
+                            <span className='ms-2'>Editar Perfil - Deshabilitado</span>
+                        </div>
+                        
                     </button>
                     <button className='Profile__menu__item' onClick={logOutFunction}>
-                        <span className='ms-2'> Cerrar sesión</span>
+                        <div className='Profile__menu__title'>
+                            <span className='ms-2'> Cerrar sesión</span>
+                        </div>
+
                     </button>
-    
+
                 </div>
             </div>
         )
     }
-    else{
-        return <Navigate to='/login'/>
+    else {
+        return <Navigate to='/login' />
     }
 
-    
+
 }
 
 export default Profile
