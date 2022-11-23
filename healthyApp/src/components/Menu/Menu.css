@@ -43,6 +43,12 @@
 
 .item__dropdown > *{
     margin-left: 5%;
+    
+}
+
+.item__dropdown > span{
+    width: 95%;
+    height: 100%;
 }
 
 .item__dropdown:hover{
