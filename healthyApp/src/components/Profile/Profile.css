@@ -47,10 +47,19 @@
 
 .Profile__menu .Profile__menu__item{
     width: 100%;
-    height: 56px;
+    min-height: 56px;
     background-color: white;
     border: none;
     border-bottom: 1px solid #C4C4D0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+}
+
+.Profile__menu .Profile__menu__item .Profile__menu__title{
+    height: 56px ;
+    width: 100%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -69,10 +78,11 @@
     height: 56px;
     background-color: white;
     border: none;
-    border-bottom: 1px solid rgb(196, 196, 208,0.6);
+    text-align: start;
+    border-radius: 28px;
 }
 
-.Profile__menu  .Profile__menu__dropdown .Profile__menu__dropdown__item:focus{
+.Profile__menu  .Profile__menu__dropdown .Profile__menu__dropdown__item:hover{
     background-color: rgb(196, 196, 208,0.3);
 }
 
