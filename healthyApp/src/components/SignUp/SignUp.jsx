@@ -9,6 +9,7 @@ import { useAuth } from '../../context/AuthContext'
 
 import '../SignUp/singUp.css'
 import User from '../../assets/login/user.svg'
+import Arrow from '../../assets/arrow-back.svg'
 
 const Register = () => {
     const navigate = useNavigate()
@@ -34,6 +35,11 @@ const Register = () => {
 
     return (
         <>
+            <header className='header-menu d-flex justify-content-start align-items-center'>
+                <div>
+                    <button className='border border-0' onClick={() => navigate('/')}> <img src={Arrow} alt="arrow back"/> </button>
+                </div>
+            </header>
             {error && <Alert message={error} />}
             <Form className='p-3' onSubmit={handleSubmit}>
                 <div className='header_Form'>
