@@ -10,6 +10,7 @@ import Google from '../../assets/google-logo.png'
 import Arrow from '../../assets/arrow-back.svg'
 
 import Form from 'react-bootstrap/Form'
+import Model from './Model/Model'
 
 const Login = () => {
     const navigate = useNavigate()
@@ -27,11 +28,13 @@ const Login = () => {
         setError('')
         try {
             await login(user.email, user.password)
+            { <Model/>}
             navigate("/")
         } catch (error) { setError(error.message) }
     }
 
     const handleGoogleSignIn = async () => {
+        
         try {
             await loginWithGoogle()
             navigate('/')
@@ -45,11 +48,6 @@ const Login = () => {
             await resetPassword(user.email)
             setError('we sent you an email with a link to reset your password')
         } catch (error) { setError(error.message) }
-    }
-    
-    const handleLogOut = async () => {
-        logOut();
-        console.log("logOut");
     }
 
     return (
@@ -104,7 +102,7 @@ const Login = () => {
             </Form>
             <p> No tiene cuenta? <Link to='/signup'>Registrese</Link> </p>
             <button onClick={handleGoogleSignIn}> Google SignIn</button>
-            <button onClick={handleLogOut}> Logout</button>
+            <Model />
         </>
     )
 }
