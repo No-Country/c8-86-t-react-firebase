@@ -10,7 +10,7 @@ import Google from '../../assets/google-logo.png'
 import Arrow from '../../assets/arrow-back.svg'
 
 import Form from 'react-bootstrap/Form'
-import Model from './Model/Model'
+import Model from '../Alert/Model/Model'
 
 const Login = () => {
     const navigate = useNavigate()
