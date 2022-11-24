@@ -30,6 +30,23 @@
     border: 1px solid #666666 !important;
 }
 
+#forget { color: black; }
+
+.btn-Google {
+    border: solid 1px #79747E;
+    border-radius: 10px;
+    width: 100%; /*312px en figma*/
+    padding: 0.5rem;
+    background: transparent;
+    font-weight: 500;
+}
+
+.btn-Google img {
+    width: 20px;
+    margin-right: 1%;
+}
+
+
 .btn {
     background: #606060 !important;
     color: white !important;
