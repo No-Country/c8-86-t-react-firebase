@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
+//import { useForm } from 'react-hook-form'
 import { useAuth } from '../../context/AuthContext'
 import { Alert } from '../Alert/Alert'
 
 import '../Login/Login.css'
 import User from '../../assets/login/user.svg'
 import Google from '../../assets/google-logo.png'
+import Arrow from '../../assets/arrow-back.svg'
 
-import Form from "react-bootstrap/Form"
+import Form from 'react-bootstrap/Form'
 
 const Login = () => {
     const navigate = useNavigate()
@@ -53,6 +54,11 @@ const Login = () => {
 
     return (
         <>
+            <header className='header-menu d-flex justify-content-start align-items-center'>
+                <div>
+                    <button className='border border-0' onClick={() => navigate('/')}> <img src={Arrow} alt="arrow back"/> </button>
+                </div>
+            </header>
             <Form className='p-3' onSubmit={handleSubmit}>
                 {error && <Alert message={error} />}
                 <div className='header_Form'>
