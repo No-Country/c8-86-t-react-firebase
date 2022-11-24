@@ -1,9 +1,29 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
 
+.header-menu button {
+    margin-left: 5%;
+    width: 10%;
+    margin-left: 100%;
+    
+    background: transparent;
+}
+
+.header-menu button img {
+    width: 18px;
+    opacity: 0.8;
+}
+
+.header-menu {
+    background: #F3EDF7;
+    height: 60px;
+}
+
 .header_Form {
     width: 100%;
     text-align: center;
 }
+
+.header_Form h1 { margin-top: 5%; }
 
 .header_Form img { 
     width: 30%; 
@@ -29,6 +49,23 @@
     height: 54px;
     border: 1px solid #666666 !important;
 }
+
+#forget { color: black; }
+
+.btn-Google {
+    border: solid 1px #79747E;
+    border-radius: 10px;
+    width: 100%; /*312px en figma*/
+    padding: 0.5rem;
+    background: transparent;
+    font-weight: 500;
+}
+
+.btn-Google img {
+    width: 20px;
+    margin-right: 1%;
+}
+
 
 .btn {
     background: #606060 !important;
