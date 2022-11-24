@@ -91,6 +91,17 @@ h2{
     overflow-y: hidden;
 }
 
+.Home__products__filter{
+    width: 100%;
+    height: 25vh;
+    margin-top: 8%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
 .Home__products .products__card{
     display: flex;
     justify-content: center;

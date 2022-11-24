@@ -26,28 +26,28 @@ const Menu = ({ menuIsShow, setMenuIsShow, productToggle, recipesToggle, profile
                     <div className='dropdown'>
                         <div className='item__dropdown'>
                             <MenuDropDown
-                                name={'Snacks'}
+                                name={'Aceites'}
                                 section={'Productos'}
                                 setMenuIsShow={setMenuIsShow}
                             />
                         </div>
                         <div className='item__dropdown'>
                             <MenuDropDown
-                                name={'Bebidas'}
+                                name={'Vinagres'}
                                 section={'Productos'}
                                 setMenuIsShow={setMenuIsShow}
                             />
                         </div>
                         <div className='item__dropdown'>
                             <MenuDropDown
-                                name={'Cereales'}
+                                name={'Condimentos'}
                                 section={'Productos'}
                                 setMenuIsShow={setMenuIsShow}
                             />
                         </div>
                         <div className='item__dropdown'>
                             <MenuDropDown
-                                name={'Harinas'}
+                                name={'Dips'}
                                 section={'Productos'}
                                 setMenuIsShow={setMenuIsShow}
                             />

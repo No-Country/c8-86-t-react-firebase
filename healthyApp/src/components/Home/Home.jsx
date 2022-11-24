@@ -13,11 +13,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BiArrowBack } from "react-icons/bi";
 import { useAuth } from '../../context/AuthContext';
 import Profile from '../Profile/Profile';
+import axios from 'axios'
+import { getProducts } from '../../store/slices/productsClicked.slice';
+import { getAllProducts } from '../../store/slices/allProducts.slice';
+import { allProductsSlice } from '../../store/slices/allProducts.slice';
 
 const Home = () => {
-
-
-
 
     const dispatch = useDispatch()
 
@@ -25,12 +26,12 @@ const Home = () => {
     //Estado global
     const productClick = useSelector(state => state.productSlice)
     const recipeClick = useSelector(state => state.recipeSlice)
+    const productsClicked = useSelector(state => state.productsClickedSlice)
+    const allProducts = useSelector(state => state.allProductsSlice)
 
-    //Estados para menu - objetivo: cerrar todo el menu
-
+    
+    //Funcion para que al dar Click en Productos se muestre en el home
     const [productIsClick, setProductIsClick] = useState(false)
-    const [recipesIsClick, setRecipesIsClick] = useState(false)
-
     const productToggle = () => {
         setFavProductsIsShow(false)
         setProductIsClick(!productIsClick)
@@ -38,6 +39,9 @@ const Home = () => {
         setProfileIsShow(false)
         setFavRecipesIsShow(false)
     }
+
+    //Funcion para que al dar Click en recetas se muestre en el home
+    const [recipesIsClick, setRecipesIsClick] = useState(false)
     const recipesToggle = () => {
         setFavProductsIsShow(false)
         setProductIsClick(false)
@@ -46,6 +50,7 @@ const Home = () => {
         setFavRecipesIsShow(false)
     }
 
+    //Funcion para ir al home estando en: productos, recetas, favoritos
     const goBack = () => {
         const showProduct = () => dispatch(setProduct(''))
         const showRecipe = () => dispatch(setRecipe(''))
@@ -56,8 +61,8 @@ const Home = () => {
         setFavRecipesIsShow(false)
     }
 
-    //Profile
-
+    
+    //Funcion para mostrar perfil en el home
     const [profileIsShow, setProfileIsShow] = useState(false)
 
     const profileToggle = () => {
@@ -68,7 +73,8 @@ const Home = () => {
         setFavRecipesIsShow(false)
     }
 
-    //fav products
+
+    //Funcion para mostrar favoritos de productos
 
     const [favProductsIsShow, setFavProductsIsShow] = useState(false)
 
@@ -80,6 +86,8 @@ const Home = () => {
         setProfileIsShow(false)
     }
 
+    //Funcion para mostrar favoritos de recetas
+
     const [favRecipesIsShow, setFavRecipesIsShow] = useState(false)
 
     const toggleFavsRecipes = () => {
@@ -89,6 +97,22 @@ const Home = () => {
         setRecipesIsClick(false)
         setProfileIsShow(false)
     }
+
+
+
+    //Petición de todos los productos
+    useEffect(() => {
+        const allProducts = () => dispatch(getAllProducts())
+        allProducts()
+    }, [])
+
+
+    //Peticion productos específicos al dar click en el menu desplegable
+    useEffect(() => {
+        const productsClicked = () => dispatch(getProducts(productClick))
+        productsClicked()
+    }, [productClick])
+
 
     return (
         <div className='Home'>
@@ -150,6 +174,18 @@ const Home = () => {
                         <>
                             <button onClick={goBack}><BiArrowBack /></button>
                             <h2>{productClick}</h2>
+                            <div className='Home__products__filter'>
+                                {
+                                    productsClicked?.map(product => (
+                                        <div className='products__card' key={product?.id}>
+                                            <ProductCard
+                                                product={product}
+
+                                            />
+                                        </div>
+                                    ))
+                                }
+                            </div>
                         </>
 
                     }
@@ -205,25 +241,15 @@ const Home = () => {
                             </div>
 
                             <div className='Home__products'>
-                                <div className='products__card'>
-                                    <ProductCard />
-                                </div>
-                                <div className='products__card'>
-                                    <ProductCard />
-                                </div>
-                                <div className='products__card'>
-                                    <ProductCard />
-                                </div>
-                                <div className='products__card'>
-                                    <ProductCard />
-                                </div>
-                                <div className='products__card'>
-                                    <ProductCard />
-                                </div>
-                                <div className='products__card'>
-                                    <ProductCard />
-                                </div>
-
+                                {
+                                    allProducts?.map(product => (
+                                        <div className='products__card' key={product.id}>
+                                            <ProductCard
+                                                product={product}
+                                            />
+                                        </div>
+                                    ))
+                                }
                             </div>
 
                             <p className='title__recommendations'>Recomendados para ti</p>
