@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../../context/AuthContext'
 
-import '../Model/model.css'
+import './model.css'
 
 const Model = () => {
     const navigate = useNavigate()
