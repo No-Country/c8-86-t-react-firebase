@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-//import { useForm } from 'react-hook-form'
 import { useAuth } from '../../context/AuthContext'
 import { Alert } from '../Alert/Alert'
 
@@ -10,7 +9,6 @@ import Google from '../../assets/google-logo.png'
 import Arrow from '../../assets/arrow-back.svg'
 
 import Form from 'react-bootstrap/Form'
-import Model from '../Alert/Model/Model'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 import 'sweetalert2/src/sweetalert2.scss'
@@ -89,7 +87,6 @@ const Login = () => {
     }
 
     const handleGoogleSignIn = async () => {
-
         try {
             await loginWithGoogle()
             navigate('/')
@@ -104,7 +101,6 @@ const Login = () => {
             setError('we sent you an email with a link to reset your password')
         } catch (error) { setError(error.message) }
     }
-
 
     console.log(error)
 
@@ -135,7 +131,6 @@ const Login = () => {
                     {
                         invalidMailErrorIsShow &&
                         <div className='alert__in__header'>
-
                             <Alert message={'Email invalido'} />
                         </div>
                     }
@@ -170,15 +165,18 @@ const Login = () => {
                 <a id='forget' href='#' onClick={handleResetPassword}> ¿Olvidaste tu contraseña? </a>
                 <br />
                 <br />
-                <button className='btn-Google d-flex align-items-center justify-content-center m-auto '>
+                <button className='btn-Google d-flex align-items-center justify-content-center m-auto ' onClick={handleGoogleSignIn}>
                     <img src={Google} alt='Logo Google' />
                     Iniciar sesión con Google
                 </button>
-                <input className='btn mt-4' type='submit' value='Ingresar' />
+                <div className='d-flex justify-content-center'>
+                    <input className='btn mt-4' type='submit' value='Ingresar' />
+                </div>
             </Form>
-            <p> No tiene cuenta? <Link to='/signup'>Registrese</Link> </p>
-            <button onClick={handleGoogleSignIn}> Google SignIn</button>
-            <Model />
+            <br />
+            <br />
+            <p className='text-center fw-semibold'> ¿No tienes una cuenta? </p>
+            <p className='text-center fw-semibold'><Link className='text-dark' to='/signup'>Registrate</Link></p>
         </>
     )
 }
