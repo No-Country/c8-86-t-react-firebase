@@ -56,7 +56,11 @@
     border: 1px solid #666666 !important;
 }
 
-#forget { color: black; }
+#forget { 
+    color: black;
+    background: transparent;
+    text-decoration: underline;
+}
 
 .btn-Google {
     border: solid 1px #79747E;
@@ -101,3 +105,10 @@
 @media screen and (max-width: 510px) {
     .form_label { margin-top: -3%; }
 }
+
+/* !Modal OlvidarPass*/
+.form-control[placeholder="input text"]  {
+    background: #E9E3EF !important;
+}
+
+.colorBg { background: #E9E3EF; }
