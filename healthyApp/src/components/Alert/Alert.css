@@ -1,11 +1,12 @@
-.alert{
+.Alert{
     background-color: rgba(254 202 202 1);
     border-width: 1;
     border-color: rgba(248 113 113 1);
-    color: rgba(185 28 28 1);
+    color: red;
     padding: .75rem 1rem;
     border-radius: .25rem;
     position: relative;
     margin-bottom: .5rem;
-    text-align: center;
+    text-align: start;
+    font-size: 14px;
 }
