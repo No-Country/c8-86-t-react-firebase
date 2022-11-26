@@ -2,11 +2,11 @@ import React, {useState} from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useNavigate } from 'react-router-dom'
-import { useAuth } from '../../../context/AuthContext'
+import { useAuth } from '../../../../context/AuthContext'
 
-import './model.css'
+import './cerrarSesion.css'
 
-const Model = () => {
+const CerrarSesion = () => {
     const navigate = useNavigate()
     const [show, setShow] = useState(false)
     const { logOut } = useAuth()
@@ -45,4 +45,4 @@ const Model = () => {
 }
 
 
-export default Model
+export default CerrarSesion
