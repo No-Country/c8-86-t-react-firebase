@@ -3,7 +3,6 @@ import './ProductCard.css'
 import { FaCarrot } from "react-icons/fa";
 
 const ProductCard = ({product}) => {
-    console.log(product)
     return (
         <div className='ProductCard'>
             <div className='ProductCard__header'>

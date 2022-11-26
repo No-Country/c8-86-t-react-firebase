@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 //import { useForm } from 'react-hook-form'
 import { useAuth } from '../../context/AuthContext'
@@ -11,6 +11,9 @@ import Arrow from '../../assets/arrow-back.svg'
 
 import Form from 'react-bootstrap/Form'
 import Model from '../Alert/Model/Model'
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+
+import 'sweetalert2/src/sweetalert2.scss'
 
 const Login = () => {
     const navigate = useNavigate()
@@ -23,18 +26,70 @@ const Login = () => {
         setUser({ ...user, [name]: value })
     }
 
+    //Mostrar error de email invalido
+    const [invalidMailErrorIsShow, setInvalidMailErrorIsShow] = useState(false)
+    const showErrorInvalidEmail = () => {
+        setInvalidMailErrorIsShow(true)
+        setTimeout(() => {
+            setInvalidMailErrorIsShow(false)
+        }, 2000);
+    }
+
+    //Mostrar error credenciales incorrectas
+    const [invalidCredentialsErrorIsShow, setInvalidCredentialsErrorIsShow] = useState(false)
+    const showErrorInvalidCredentials = () => {
+        setInvalidCredentialsErrorIsShow(true)
+        setTimeout(() => {
+            setInvalidCredentialsErrorIsShow(false)
+        }, 3000);
+    }
+
+    //Mostrar error password incorrecta
+    const [invalidPasswordErrorIsShow, setInvalidPasswordErrorIsShow] = useState(false)
+    const showErrorInvalidPassword = () => {
+        setInvalidPasswordErrorIsShow(true)
+        setTimeout(() => {
+            setInvalidPasswordErrorIsShow(false)
+        }, 3000);
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         setError('')
         try {
             await login(user.email, user.password)
-            { <Model/>}
-            navigate("/")
-        } catch (error) { setError(error.message) }
+            Swal.fire({
+                title: 'Bienvenido a Saine',
+                icon: 'success',
+                timer: 1500,
+                timerProgressBar: true,
+            }).then((result) => {
+                if (result.dismiss === Swal.DismissReason.timer) {
+                    console.log('I was closed by the timer')
+                    navigate("/")
+                }
+            })
+
+
+        } catch (error) {
+            setError(error.message)
+            if (error.message === 'Firebase: Error (auth/wrong-password).') {
+                setError(error.message)
+                showErrorInvalidPassword()
+            }
+            if (error.message === 'Firebase: Error (auth/user-not-found).') {
+                setError(error.message)
+                showErrorInvalidCredentials()
+            }
+            if (error.message === 'Firebase: Error (auth/invalid-email).') {
+                setError(error.message)
+                showErrorInvalidEmail()
+            }
+        }
     }
 
     const handleGoogleSignIn = async () => {
-        
+
         try {
             await loginWithGoogle()
             navigate('/')
@@ -50,15 +105,23 @@ const Login = () => {
         } catch (error) { setError(error.message) }
     }
 
+
+    console.log(error)
+
     return (
         <>
             <header className='header-menu d-flex justify-content-start align-items-center'>
                 <div>
-                    <button className='border border-0' onClick={() => navigate('/')}> <img src={Arrow} alt="arrow back"/> </button>
+                    <button className='border border-0' onClick={() => navigate('/')}> <img src={Arrow} alt="arrow back" /> </button>
                 </div>
             </header>
             <Form className='p-3' onSubmit={handleSubmit}>
-                {error && <Alert message={error} />}
+                {
+                    invalidCredentialsErrorIsShow &&
+                        <div className='alert__in__header'>
+                            <Alert message={'Credenciales inválidas'} />
+                        </div>
+                }
                 <div className='header_Form'>
                     <h1 className='text-start'> Bienvenido de nuevo! </h1>
                     <div className='div_img__user m-auto'>
@@ -68,7 +131,14 @@ const Login = () => {
 
                 <Form.Group className='mt-3' controlId='formBasicEmail'>
                     <Form.Label className='form_label'> Email </Form.Label>
-                    <Form.Control className='input' type='email' placeholder='Input Text' name='email' required  onChange={handleChange} />
+                    <Form.Control className='input' type='text' placeholder='Input Text' name='email' required onChange={handleChange} />
+                    {
+                        invalidMailErrorIsShow &&
+                        <div className='alert__in__header'>
+
+                            <Alert message={'Email invalido'} />
+                        </div>
+                    }
                 </Form.Group>
 
                 <Form.Group className='mt-3' controlId='formBasicPassword'>
@@ -78,7 +148,7 @@ const Login = () => {
                         {show ? (
                             <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' height={'1.5rem'}>
                                 <path d='M12 15a3 3 0 100-6 3 3 0 000 6z' />
-                                <path fillRule='evenodd' d='M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z' clipRule='evenodd'/>
+                                <path fillRule='evenodd' d='M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z' clipRule='evenodd' />
                             </svg>
                         ) : (
                             <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' height={'1.5rem'}>
@@ -88,6 +158,12 @@ const Login = () => {
                             </svg>
                         )}
                     </div>
+                    {
+                        invalidPasswordErrorIsShow &&
+                        <div className='alert__in__header'>
+                            <Alert message={'Contraseña Incorrecta'} />
+                        </div>
+                    }
                 </Form.Group>
 
                 <br />
@@ -95,7 +171,7 @@ const Login = () => {
                 <br />
                 <br />
                 <button className='btn-Google d-flex align-items-center justify-content-center m-auto '>
-                    <img src={Google} alt='Logo Google'/>
+                    <img src={Google} alt='Logo Google' />
                     Iniciar sesión con Google
                 </button>
                 <input className='btn mt-4' type='submit' value='Ingresar' />

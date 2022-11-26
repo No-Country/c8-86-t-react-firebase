@@ -8,7 +8,7 @@ import './Profile.css'
 const Profile = ({ toggleFavsProducts, toggleFavsRecipes }) => {
 
     const { user, loading, logOut } = useAuth()
-    console.log(user)
+    
 
     //function logOut
     const logOutFunction = () => {
