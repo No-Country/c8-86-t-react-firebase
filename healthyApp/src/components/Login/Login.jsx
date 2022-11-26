@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate, Link, useAsyncError } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import { Alert } from '../Alert/Alert'
 
@@ -12,6 +12,7 @@ import Form from 'react-bootstrap/Form'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 import 'sweetalert2/src/sweetalert2.scss'
+import ModalPass from '../Alert/Model/OlvidarPsw/OlvidarPass'
 
 const Login = () => {
     const navigate = useNavigate()
@@ -20,6 +21,7 @@ const Login = () => {
     const { login, loginWithGoogle, resetPassword, logOut } = useAuth()
     const [error, setError] = useState()
 
+    const [btnPass, setBtnPass] = useState(false)
     const handleChange = ({ target: { name, value } }) => {
         setUser({ ...user, [name]: value })
     }
@@ -93,13 +95,8 @@ const Login = () => {
         } catch (error) { setError(error.message) }
     }
 
-    const handleResetPassword = async (e) => {
-        e.preventDefault()
-        if (!user.email) return setError('Please enter your email')
-        try {
-            await resetPassword(user.email)
-            setError('we sent you an email with a link to reset your password')
-        } catch (error) { setError(error.message) }
+    const clickBtn = () => {
+        setBtnPass(true)
     }
 
     console.log(error)
@@ -162,7 +159,9 @@ const Login = () => {
                 </Form.Group>
 
                 <br />
-                <a id='forget' href='#' onClick={handleResetPassword}> ¿Olvidaste tu contraseña? </a>
+                <button className='border border-0' id='forget' href='#' onClick={() => setBtnPass(true)}> ¿Olvidaste tu contraseña? </button>
+                { btnPass && <ModalPass error={error} user={user}/> }
+                
                 <br />
                 <br />
                 <button className='btn-Google d-flex align-items-center justify-content-center m-auto ' onClick={handleGoogleSignIn}>
