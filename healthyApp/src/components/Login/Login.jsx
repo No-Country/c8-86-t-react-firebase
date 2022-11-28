@@ -95,9 +95,6 @@ const Login = () => {
         } catch (error) { setError(error.message) }
     }
 
-    const clickBtn = () => {
-        setBtnPass(true)
-    }
 
     console.log(error)
 
