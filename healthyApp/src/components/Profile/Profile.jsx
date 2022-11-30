@@ -1,19 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useAuth } from '../../context/AuthContext'
 import Header from '../../components/Header/Header'
 import { Navigate, useNavigate } from 'react-router-dom'
 import User from '../../assets/login/user.svg'
 import './Profile.css'
 
+import CerrarSesion from '../Alert/Model/CerrarSesion/CerrarSesion'
+
 const Profile = ({ toggleFavsProducts, toggleFavsRecipes }) => {
+
+    //Estado para abrir o cerrar Modal de Cerrar Sesión 
+    const [lookOption, setLookOption] = useState(false)
 
     const { user, loading, logOut } = useAuth()
     
 
     //function logOut
-    const logOutFunction = () => {
+    /*const logOutFunction = () => {
         logOut()
-    }
+    }*/
 
     //funcion desplegar favoritos
     const [favsIsShow, setFavsIsShow] = useState(false)
@@ -24,6 +29,7 @@ const Profile = ({ toggleFavsProducts, toggleFavsRecipes }) => {
     //function favoritosProductos
 
 
+    useEffect(() => { setLookOption(false) }, [])
 
     if (user != null) {
         return (
@@ -63,13 +69,12 @@ const Profile = ({ toggleFavsProducts, toggleFavsRecipes }) => {
                         </div>
                         
                     </button>
-                    <button className='Profile__menu__item' onClick={logOutFunction}>
+                    <button className='Profile__menu__item' onClick={() => setLookOption(!lookOption)}>
                         <div className='Profile__menu__title'>
-                            <span className='ms-2'> Cerrar sesión</span>
+                            <button className='ms-2 border border-0 bg-transparent'> Cerrar sesión</button>
+                            { lookOption && <CerrarSesion/> }
                         </div>
-
                     </button>
-
                 </div>
             </div>
         )

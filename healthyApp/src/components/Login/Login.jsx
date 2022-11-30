@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
-//import { useForm } from 'react-hook-form'
+import React, { useState } from 'react'
+import { useNavigate, Link, useAsyncError } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import { Alert } from '../Alert/Alert'
 
@@ -10,13 +9,13 @@ import Google from '../../assets/google-logo.png'
 import Arrow from '../../assets/arrow-back.svg'
 
 import Form from 'react-bootstrap/Form'
-import Model from '../Alert/Model/Model'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 import 'sweetalert2/src/sweetalert2.scss'
 import { setProfileActions } from '../../store/slices/profileActions.slice'
 import { useDispatch } from 'react-redux'
 import { setMenuActions } from '../../store/slices/menuActions.slice'
+import ModalPass from '../Alert/Model/OlvidarPsw/OlvidarPass'
 
 const Login = () => {
     const navigate = useNavigate()
@@ -25,6 +24,7 @@ const Login = () => {
     const { login, loginWithGoogle, resetPassword, logOut } = useAuth()
     const [error, setError] = useState()
 
+    const [btnPass, setBtnPass] = useState(false)
     const handleChange = ({ target: { name, value } }) => {
         setUser({ ...user, [name]: value })
     }
@@ -92,7 +92,6 @@ const Login = () => {
     }
 
     const handleGoogleSignIn = async () => {
-
         try {
             await loginWithGoogle()
             navigate('/')
@@ -109,6 +108,7 @@ const Login = () => {
     }
 
     const dispatch = useDispatch()
+
     console.log(error)
     const hideProfile = () => dispatch(setProfileActions({ profileIsShow: false }))
     const hideMenu = () => dispatch(setMenuActions({ menuIsShow: false }))
@@ -146,7 +146,6 @@ const Login = () => {
                     {
                         invalidMailErrorIsShow &&
                         <div className='alert__in__header'>
-
                             <Alert message={'Email invalido'} />
                         </div>
                     }
@@ -178,18 +177,23 @@ const Login = () => {
                 </Form.Group>
 
                 <br />
-                <a id='forget' href='#' onClick={handleResetPassword}> ¿Olvidaste tu contraseña? </a>
+                <button className='border border-0' id='forget' href='#' onClick={() => setBtnPass(true)}> ¿Olvidaste tu contraseña? </button>
+                { btnPass && <ModalPass error={error} user={user}/> }
+                
                 <br />
                 <br />
-                <button className='btn-Google d-flex align-items-center justify-content-center m-auto '>
+                <button className='btn-Google d-flex align-items-center justify-content-center m-auto ' onClick={handleGoogleSignIn}>
                     <img src={Google} alt='Logo Google' />
                     Iniciar sesión con Google
                 </button>
-                <input className='btn mt-4' type='submit' value='Ingresar' />
+                <div className='d-flex justify-content-center'>
+                    <input className='btn mt-4' type='submit' value='Ingresar' />
+                </div>
             </Form>
-            <p> No tiene cuenta? <Link to='/signup'>Registrese</Link> </p>
-            <button onClick={handleGoogleSignIn}> Google SignIn</button>
-            <Model />
+            <br />
+            <br />
+            <p className='text-center fw-semibold'> ¿No tienes una cuenta? </p>
+            <p className='text-center fw-semibold'><Link className='text-dark' to='/signup'>Registrate</Link></p>
         </>
     )
 }

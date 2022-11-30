@@ -112,12 +112,12 @@ const Register = () => {
                         )}
                     </div>
                 </Form.Group>
-
-                <input className='btn mt-4' type='submit' value='Registrate' />
+                <div className='d-flex justify-content-center'>
+                    <input className='btn mt-4' type='submit' value='Registrarme' />
+                </div>
             </Form>
-            <p>
-                Ya tienes cuenta? <Link to='/login'>Login</Link>
-            </p>
+            <p className='text-center fw-semibold mt-5 mb-2'> Ya tienes cuenta? </p>
+            <p className='text-center fw-semibold'><Link className='text-dark' to='/login'>Iniciar Sesión</Link></p>
         </>
     );
 };
