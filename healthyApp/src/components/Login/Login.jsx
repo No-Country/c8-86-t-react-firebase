@@ -12,6 +12,9 @@ import Form from 'react-bootstrap/Form'
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 
 import 'sweetalert2/src/sweetalert2.scss'
+import { setProfileActions } from '../../store/slices/profileActions.slice'
+import { useDispatch } from 'react-redux'
+import { setMenuActions } from '../../store/slices/menuActions.slice'
 import ModalPass from '../Alert/Model/OlvidarPsw/OlvidarPass'
 
 const Login = () => {
@@ -95,22 +98,40 @@ const Login = () => {
         } catch (error) { setError(error.message) }
     }
 
+    const handleResetPassword = async (e) => {
+        e.preventDefault()
+        if (!user.email) return setError('Please enter your email')
+        try {
+            await resetPassword(user.email)
+            setError('we sent you an email with a link to reset your password')
+        } catch (error) { setError(error.message) }
+    }
+
+    const dispatch = useDispatch()
 
     console.log(error)
+    const hideProfile = () => dispatch(setProfileActions({ profileIsShow: false }))
+    const hideMenu = () => dispatch(setMenuActions({ menuIsShow: false }))
 
     return (
         <>
             <header className='header-menu d-flex justify-content-start align-items-center'>
                 <div>
-                    <button className='border border-0' onClick={() => navigate('/')}> <img src={Arrow} alt="arrow back" /> </button>
+                    <button className='border border-0'
+                        onClick={() => {
+                            hideProfile()
+                            hideMenu()
+                            navigate('/')
+                        }}
+                    > <img src={Arrow} alt="arrow back" /> </button>
                 </div>
             </header>
             <Form className='p-3' onSubmit={handleSubmit}>
                 {
                     invalidCredentialsErrorIsShow &&
-                        <div className='alert__in__header'>
-                            <Alert message={'Credenciales inválidas'} />
-                        </div>
+                    <div className='alert__in__header'>
+                        <Alert message={'Credenciales inválidas'} />
+                    </div>
                 }
                 <div className='header_Form'>
                     <h1 className='text-start'> Bienvenido de nuevo! </h1>

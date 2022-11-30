@@ -4,13 +4,33 @@
 }
 
 .Home__content{
-    height: 85vh;
+    min-height: 85vh;
     display: flex;
     align-items: flex-start;
-    justify-content: flex-start;
-    flex-direction: column;
+    justify-content: center;
+    width: 100%;
     padding-left: 8%;
-    padding-top: 8%;
+    padding-top: 15vh;
+}
+.back__button{
+    position: fixed;
+    top: 12vh;
+    left: 5vh;
+    background-color: #D9D9D9;
+    color: black;
+    z-index: 6;
+    height: 34px;
+    width: 34px;
+    border-radius: 24px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Home__content__products__filter{
+    display: flex;
+    flex-wrap: wrap;
 }
 
 h2{
