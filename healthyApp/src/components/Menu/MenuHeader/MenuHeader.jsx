@@ -1,37 +1,36 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { setProductsActions } from '../../../store/slices/productsActions.slice'
 import './MenuHeader.css'
 
-const MenuHeader = ({name,setMenuIsShow,productToggle,recipesToggle,profileToggle}) => {
-
-    const navigate = useNavigate()
-
-    const goTo = (name) =>{
-        if(name==='Iniciar Sesión'){
-            navigate('/login')
-        }
-        else if(name==='Registrarse'){
-            navigate('/signup')
-        }
-        else if(name==='Perfil'){
-            profileToggle()
-            setMenuIsShow(false)
-        }
-        else if(name==='Productos'){
-            productToggle()
-            
-        }
-        else if(name==='Recetas'){
-            recipesToggle()
-        }
-    }
-
-
+const MenuHeader = ({ category, toggleCategoryInProducts, setSubCategoryInProducts, hideMenu }) => {
+    const productsActions = useSelector(state => state.productsActionsSlice)
 
     return (
-        <button className='MenuHeader' onClick={()=>goTo(name)}>
-            <span>{name}</span>
-        </button>
+        <div className='MenuHeader' >
+            <button onClick={() => toggleCategoryInProducts(category?.category)}>{category?.category}</button>
+            {
+                (category?.category === productsActions.categoryIsClick.categoryName) &&
+                <div className='MenuHeader__subcategory'>
+                    {
+                        category?.subcategories.map(subcategory => (
+                            <button
+                                onClick={() => {
+                                    setSubCategoryInProducts(subcategory, category?.category)
+                                    hideMenu()
+                                }
+                                }
+                                key={subcategory.id}
+                            >
+                                {subcategory}
+                            </button>
+                        ))
+                    }
+                </div>
+
+
+            }
+        </div>
     )
 }
 

@@ -1,8 +1,33 @@
 .MenuHeader{
-    border: none;
-    background-color: transparent;
+    min-height: 56px;
+    margin-left: 10%;
+    min-width: 90%;
+    text-align: start;
+    border-bottom: 1px solid rgb(196, 196, 208,0.6);
 }
 
-.MenuHeader > span {
-    margin-left: 16px;
+/* .MenuHeader:hover{
+    background-color: rgb(49, 111, 42,0.6);
+} */
+
+.MenuHeader__subcategory{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: flex-start;
+    width: 100%;
+    margin-left: 10%;
+}
+
+.MenuHeader__subcategory button{
+    min-height: 56px;
+    width: 90%;
+    border-radius: 28px;
+    text-align: start;
+    padding-left: 5%;
+    margin-bottom: 5%;
+}
+
+.MenuHeader__subcategory button:hover{
+    background-color: rgb(49, 111, 42,0.6);
 }
