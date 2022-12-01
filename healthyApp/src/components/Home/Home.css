@@ -4,13 +4,13 @@
 }
 
 .Home__content{
-    min-height: 85vh;
+    height: 85vh;
     display: flex;
     align-items: flex-start;
-    justify-content: center;
-    width: 100%;
+    justify-content: flex-start;
+    flex-direction: column;
     padding-left: 8%;
-    padding-top: 15vh;
+    padding-top: 8%;
 }
 .back__button{
     position: fixed;
@@ -31,6 +31,7 @@
 .Home__content__products__filter{
     display: flex;
     flex-wrap: wrap;
+    padding-top: 6vh;
 }
 
 h2{

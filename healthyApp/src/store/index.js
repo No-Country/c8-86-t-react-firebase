@@ -10,6 +10,8 @@ import productsActionsSlice from './slices/productsActions.slice'
 import menuActionsSlice from './slices/menuActions.slice'
 import profileActionsSlice from './slices/profileActions.slice'
 import categorySlice from './slices/category.slice'
+import categoryHomeSlice from './slices/categoryHome.slice'
+import categoryHomeActionsSlice from './slices/categoryHomeActions.slice'
 
 export default configureStore({
     reducer:{
@@ -21,6 +23,11 @@ export default configureStore({
         menuActionsSlice,
         profileActionsSlice,
         categorySlice,
+
+        categoryHomeSlice,
+        categoryHomeActionsSlice
+
         productItemSlice
+
     }
 })
