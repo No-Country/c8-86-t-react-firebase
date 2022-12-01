@@ -15,7 +15,10 @@ import { AiOutlineSearch } from "react-icons/ai";
 import CategoryCard from '../CategoryCard/CategoryCard';
 import { getAllProducts } from '../../store/slices/allProducts.slice';
 
+import { useNavigate } from 'react-router-dom'
+
 const Home = () => {
+    const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const menuActions = useSelector(state => state.menuActionsSlice)
@@ -116,6 +119,7 @@ const Home = () => {
                     :
                     <div className='Home__content'>
                         {
+
                             productsActions?.subcategoryIsClick.subcategoryName ?
                                 <>
                                     <button className='back__button' onClick={backHome}>
@@ -182,6 +186,8 @@ const Home = () => {
                                         }
                                     </div>
                                 </>
+
+                           
                         }
 
 

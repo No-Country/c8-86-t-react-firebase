@@ -3,6 +3,7 @@ import productSlice from './slices/product.slice'
 import recipeSlice from './slices/recipe.slice'
 import productsClickedSlice from './slices/productsClicked.slice'
 import allProductsSlice from './slices/allProducts.slice'
+import productItemSlice from './slices/productItem.slice'
 
 //Nuevos estados
 import productsActionsSlice from './slices/productsActions.slice'
@@ -22,7 +23,11 @@ export default configureStore({
         menuActionsSlice,
         profileActionsSlice,
         categorySlice,
+
         categoryHomeSlice,
         categoryHomeActionsSlice
+
+        productItemSlice
+
     }
 })
