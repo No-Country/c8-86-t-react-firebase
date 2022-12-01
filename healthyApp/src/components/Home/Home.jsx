@@ -12,7 +12,10 @@ import { setProductsActions } from '../../store/slices/productsActions.slice';
 import { getProducts } from '../../store/slices/productsClicked.slice';
 import ProductCard from '../Products/ProductCard/ProductCard';
 
+import { useNavigate } from 'react-router-dom'
+
 const Home = () => {
+    const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const menuActions = useSelector(state => state.menuActionsSlice)
@@ -80,7 +83,7 @@ const Home = () => {
                                 <div className='Home__content__products__filter'>
                                     {
                                         productsFilterBySubcategory?.map(product => (
-                                            <div className='products__card' key={product?.id}>
+                                            <div className='products__card' key={product?.id}  onClick={() => navigate(`/product/${product.id}`)}>
                                                 <ProductCard
                                                     product={product}
 
