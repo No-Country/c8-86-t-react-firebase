@@ -10,6 +10,7 @@ import RecipeDetail from "./components/Recipes/RecipeDetail";
 import ProtectedRoutes from "./components/ProtectedRoutes/ProtectedRoutes";
 import { AuthProvider } from "./context/AuthContext";
 
+import './App.css'
 
 function App() {
     return (
