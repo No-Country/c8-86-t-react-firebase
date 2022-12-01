@@ -177,7 +177,7 @@ const Home = () => {
                                                 ))
                                                 :
                                                 allProducts?.map(product => (
-                                                    <div className='products__card' key={product.id}>
+                                                    <div className='products__card' key={product.id} onClick={() => navigate(`/product/${product.id}`)}>
                                                         <ProductCard
                                                             product={product}
                                                         />
