@@ -1,0 +1,11 @@
+:root {
+    --PrincipalColor: #C8DEBD;
+}
+
+.disabled{
+    color: rgb(174, 174, 178);
+}
+
+.lineBottom {
+    border-bottom: rgb(174, 174, 178) 1px solid;
+}

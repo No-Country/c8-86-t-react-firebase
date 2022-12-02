@@ -1,9 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
 
+
+
 .alert__in__header{
     margin-top: 2%;
     width: 100%;
-    background-color: #E9E3EF;
+    background-color: var(--PrincipalColor);
     border-radius: 12px;
 }
 
@@ -20,7 +22,7 @@
 }
 
 .header-menu {
-    background: #F3EDF7;
+    background: var(--PrincipalColor);
     height: 60px;
 }
 
