@@ -92,8 +92,6 @@ const Home = () => {
             filterProducts = allProducts.slice(first_number, second_number)
         }
 
-        // console.log(filterProducts)
-
         setProductsRandomToCategory(filterProducts)
 
     }, [categoryHomeActions])
