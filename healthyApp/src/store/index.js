@@ -25,7 +25,7 @@ export default configureStore({
         categorySlice,
 
         categoryHomeSlice,
-        categoryHomeActionsSlice
+        categoryHomeActionsSlice,
 
         productItemSlice
 
