@@ -9,3 +9,7 @@
 .lineBottom {
     border-bottom: rgb(174, 174, 178) 1px solid;
 }
+
+.opacity {
+    opacity: 0.5;
+}
