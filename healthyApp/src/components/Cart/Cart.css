@@ -1,0 +1,98 @@
+.title_cart {
+    font-weight: 500;
+    font-size: 24px;
+}
+
+.listInCart {
+    width: 360px;
+    height: 548px;
+    /*border: solid #ff0000 2px;*/
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5%;
+}
+
+.listInCart__Item {
+    border-radius: 16px;
+    /*border: solid rgb(128, 0, 102) 5px;*/
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.listInCart__Item  .addImg {
+    /*background: salmon;*/
+    display: flex;
+}
+
+.addImg ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.addImg li {
+    margin-left: 10%;
+}
+
+.addImg p {
+   /* background: slateblue;*/
+    font-weight: 400;
+}
+
+.addImg .containerImage {
+   /* background: rgb(134, 41, 41);*/
+    display: flex;
+    
+}
+
+.addImg {
+    width: 50%;
+}
+
+.addImg img {
+    object-fit: cover;
+    border-radius: 50%;
+    background: saddlebrown;
+}
+
+.containerImage  {
+    width: 50px;
+    height: 50px;
+}
+
+
+/*! The buttons of pay*/
+
+.listInCart__Item .addCount {
+    width: 50%;
+    height: 100%;
+    /*background: rgb(14, 167, 80);*/
+}
+
+
+.inputs {
+    display: flex;
+    justify-content: center;
+   /* background: saddlebrown;*/
+    align-items: center;
+    height: 100%;
+    /*width: 96px;
+    height: 24px;*/
+}
+
+.inputs input {
+    width: 48px;
+    height: 24px;
+    text-align: center;
+    border: none;
+    background: #EFEFF0;
+}
+
+.inputs button {
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: #C8DEBD;
+}
