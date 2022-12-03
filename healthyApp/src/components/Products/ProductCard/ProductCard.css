@@ -5,6 +5,11 @@
     position: relative;
     background-color: #FAFAFA;
     margin-right: 10px;
+    margin-top: 10%;
+}
+
+.ProductCard:hover{
+    transform: scale(1.02);
 }
 
 .ProductCard__header{
@@ -20,18 +25,21 @@
     border-top-right-radius: 14px;
     border-bottom-left-radius: 50% 40%;
     border-bottom-right-radius: 20% 5%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .ProductCard__header >img{
     width: 110px;
-    height: 110px;
+    height: 100px;
     
 }
 
 .ProductCard__description{
     height: 84px;
     width: 100%;
-    background-color: #D9D9D9;
+    background-color: #C8DEBD;
     position: absolute;
     bottom: 0;
     border-bottom-left-radius: 14px;
@@ -48,10 +56,11 @@
     margin-bottom: 5%;
     overflow:hidden;
     text-overflow:clip;
+    color: #152E12;
 }
 
 .ProductCard__description .ProductCard__description__price{
-    background-color: rgb(33, 33, 33,0.1);
+    background-color: white;
     margin-bottom: 5%;
     margin-right: 5% ;
     width: 40%;
@@ -61,4 +70,46 @@
     justify-content: center;
     align-items: center;
     font-size: 13px;
+    color: #152E12;
 }
+
+.Ofertas__tag, .Novedades__tag{
+    position: absolute;
+    left: 0px;
+    top: 50%;
+    z-index: 6;
+    padding-left: 2%;
+    padding-right: 4%;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background: #C8DEBD;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+    
+}
+
+.button__cart{
+    position: absolute;
+    width: 30px;
+    height:30px;
+    top: 5%;
+    right: 5%;
+    z-index: 6;
+    background-color: #C8DEBD;
+    border-radius: 50%;
+    color: #152E12;
+    font-size: 19px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+}
+.button__cart > svg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+/* Vector 2 */
+
+
+

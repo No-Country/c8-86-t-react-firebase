@@ -14,8 +14,9 @@ import ProductCard from '../Products/ProductCard/ProductCard';
 import { AiOutlineSearch } from "react-icons/ai";
 import CategoryCard from '../CategoryCard/CategoryCard';
 import { getAllProducts } from '../../store/slices/allProducts.slice';
-
+import RecommendationCard from '../Products/RecommendationCard/RecommendationCard'
 import { useNavigate } from 'react-router-dom'
+import { Element, scroller, animateScroll as scroll } from 'react-scroll';
 
 const Home = () => {
     const navigate = useNavigate()
@@ -28,6 +29,7 @@ const Home = () => {
     const allProducts = useSelector(state => state.allProductsSlice)
     const categoryHome = useSelector(state => state.categoryHomeSlice)
     const categoryHomeActions = useSelector(state => state.categoryHomeActionsSlice)
+    const category = useSelector(state => state.categorySlice)
     // console.log(categoryHomeActions)
 
     //Metodos para estados globales de control de vista
@@ -100,6 +102,8 @@ const Home = () => {
     }, [categoryHomeActions])
 
 
+
+
     return (
         <div className='Home'>
             <Header />
@@ -124,16 +128,23 @@ const Home = () => {
                                         <BiArrowBack />
                                     </button>
                                     <div className='Home__content__products__filter'>
-                                        {
-                                            productsFilterBySubcategory?.map(product => (
-                                                <div className='products__card' key={product?.id}>
-                                                    <ProductCard
-                                                        product={product}
+                                        <div className='Home__content_products__filter__header'>
+                                            <h2>{productsActions?.categoryIsClick.categoryName}</h2>
+                                            <h6>{productsActions?.subcategoryIsClick.subcategoryName}</h6>
+                                        </div>
+                                        <div className='Home__content_products__filter__products'>
+                                            {
+                                                productsFilterBySubcategory?.map(product => (
+                                                    <div className='products__card' key={product?.id} onClick={() => navigate(`/product/${product.id}`)}>
+                                                        <ProductCard
+                                                            product={product}
 
-                                                    />
-                                                </div>
-                                            ))
-                                        }
+                                                        />
+                                                    </div>
+                                                ))
+                                            }
+                                        </div>
+
                                     </div>
 
 
@@ -151,11 +162,12 @@ const Home = () => {
 
                                     <div className='Home__categories'>
                                         {
-                                            categoryHome?.map(category => (
-                                                <div className='category__card' key={category.id}>
+                                            categoryHome?.map((category, index) => (
+                                                <div className='category__card' key={index}>
                                                     <CategoryCard
                                                         name={category.categoryName}
                                                         key={category.id}
+
                                                     />
                                                 </div>
                                             ))
@@ -163,29 +175,47 @@ const Home = () => {
                                     </div>
 
                                     <div className='Home__products'>
+
                                         {
                                             categoryHomeActions.categoryHomeIsClick.toggle &&
                                                 productsRandomToCategory?.length > 0 ?
-                                                productsRandomToCategory?.map(product => (
-                                                    <div className='products__card' key={product.id}>
+                                                productsRandomToCategory?.map((product, index) => (
+                                                    <div className='products__card' key={product.id} onClick={() => navigate(`/product/${product.id}`)} id='slider'>
+
                                                         <ProductCard
                                                             product={product}
+                                                            category={categoryHomeActions.categoryHomeIsClick.categoryName}
                                                         />
+
                                                     </div>
                                                 ))
                                                 :
-                                                allProducts?.map(product => (
-                                                    <div className='products__card' key={product.id} onClick={() => navigate(`/product/${product.id}`)}>
+                                                allProducts?.map((product, index) => (
+                                                    <div className='products__card' key={product.id} onClick={() => navigate(`/product/${product.id}`)} id='slider'>
                                                         <ProductCard
                                                             product={product}
                                                         />
                                                     </div>
                                                 ))
                                         }
+
+                                    </div>
+                                    <p className='title__recommendations'>Recomendados para ti</p>
+                                    <div className='Home__recommendations'>
+                                        {
+                                            category &&
+                                            category?.map(category => (
+                                                <div className='recommendations__card' key={category.id}>
+                                                    <RecommendationCard
+                                                        category={category}
+                                                    />
+                                                </div>
+                                            ))
+                                        }
                                     </div>
                                 </>
 
-                           
+
                         }
 
 

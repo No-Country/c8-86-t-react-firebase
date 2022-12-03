@@ -7,7 +7,7 @@
 .Menu-true{
     visibility: visible;
     height: 94vh;
-    z-index: 6;
+    z-index: 12;
     background-color: #F4F8EC;
     display: flex;
     justify-content: flex-start;

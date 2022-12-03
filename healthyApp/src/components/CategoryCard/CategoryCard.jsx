@@ -18,6 +18,7 @@ const CategoryCard = ({ name }) => {
                 categoryName: name
             }
         }))
+        
     }
 
     if (categoryHomeActions.categoryHomeIsClick.categoryName === name) {
@@ -31,7 +32,7 @@ const CategoryCard = ({ name }) => {
 
     return (
         <button className={`CategoryCard-${state}`} onClick={setCategory}>
-            <p>{name}</p>
+            <span>{name}</span>
         </button>
     )
 }
