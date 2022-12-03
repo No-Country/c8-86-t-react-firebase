@@ -36,8 +36,8 @@ const ProductDetail = () => {
     },[])
 
     //console.log(detailProduct);
-    console.log(id)
-    console.log(detailProduct)
+    // console.log(id)
+    // console.log(detailProduct)
     //details();
     //console.log(productItem)
     return (
