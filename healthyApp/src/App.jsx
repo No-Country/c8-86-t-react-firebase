@@ -11,6 +11,7 @@ import ProtectedRoutes from "./components/ProtectedRoutes/ProtectedRoutes";
 import { AuthProvider } from "./context/AuthContext";
 
 import './App.css'
+import EditProfile from "./components/Profile/EditProfile/EditProfile";
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
                     <Route path='/' element={<Home />} />
                     <Route path='/login' element={<Login />} />
                     <Route path='/signup' element={<Register />} />
+                    <Route path='/login/edit' element={<EditProfile/>}/>
                     <Route path='/product/:id' element={<ProductDetail />} />
                     <Route path='/recipe/:id' element={<RecipeDetail />} />
 
