@@ -33,7 +33,7 @@
 }
 
 .addImg li {
-    margin-left: 10%;
+    margin-left: 1.2rem;
 }
 
 .addImg p {
@@ -42,9 +42,9 @@
 }
 
 .addImg .containerImage {
-   /* background: rgb(134, 41, 41);*/
     display: flex;
-    
+    border-radius: 50%;
+    background: rgb(209, 89, 4);
 }
 
 .addImg {
@@ -53,8 +53,9 @@
 
 .addImg img {
     object-fit: cover;
-    border-radius: 50%;
-    background: saddlebrown;
+    border-radius: 100%;
+    /*background: #DADCE0;
+    border: 5px solid #DADCE0;*/
 }
 
 .containerImage  {
@@ -82,10 +83,11 @@
     height: 24px;*/
 }
 
-.inputs input {
+.inputs p {
     width: 48px;
     height: 24px;
     text-align: center;
+    margin-top: 9%;
     border: none;
     background: #EFEFF0;
 }
