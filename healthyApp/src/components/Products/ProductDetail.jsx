@@ -13,7 +13,7 @@ import { useState } from 'react'
 
 import Container from 'react-bootstrap/Container';
 import './productDetail.css'
-import {AiOutlineHeart} from 'react-icons/ai'
+import {AiOutlineHeart, AiFillHeart} from 'react-icons/ai'
 
 
 
@@ -26,6 +26,7 @@ const ProductDetail = () => {
 
     const {id} = useParams()
     const [detailProduct, setDetailProduct] = useState({})
+    const [statusFavorite, setStatusFavorite] = useState(false)
 
     const backHome = () => navigate('/')
 
@@ -54,8 +55,10 @@ const ProductDetail = () => {
 
                 <div className='imageProduct'>
                     <img src={detailProduct.imageUrl} alt="" />
-                    <button className='squireLike border border-0'>
-                        <AiOutlineHeart/>
+                    <button className='squireLike border border-0' onClick={() => setStatusFavorite(!statusFavorite)}>
+                        {
+                            statusFavorite ? <AiFillHeart/> : <AiOutlineHeart/>
+                        }
                     </button>
                 </div>
 
