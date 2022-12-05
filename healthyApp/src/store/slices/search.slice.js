@@ -1,6 +1,8 @@
 import {createSlice} from '@reduxjs/toolkit'
 import axios from 'axios'
 
+import {setLoading} from './loading.slice'
+
 export const searchSlice = createSlice({
     name: 'searchSlice',
     initialState:'',
@@ -12,6 +14,7 @@ export const searchSlice = createSlice({
 export const {setSearchSlice} = searchSlice.actions
 
 export const getSearch = (search) => (dispatch)=>{
+    dispatch(setLoading(true))
     const URL = `https://us-central1-saine-api.cloudfunctions.net/app/api/products`
     axios.get(URL)
         .then(res => {
@@ -31,7 +34,7 @@ export const getSearch = (search) => (dispatch)=>{
 
             
 
-        })
+        }).finally(() => dispatch(setLoading(false)))
 }
 
 
