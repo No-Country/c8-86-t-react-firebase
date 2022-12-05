@@ -119,10 +119,10 @@ const Menu = () => {
                 <button onClick={toggleProducts}>Productos</button>
                 {
                     productsActions.productIsClick &&
-                    categorySlice?.map(category => (
+                    categorySlice?.map((category,index) => (
                         <MenuHeader
                             category={category}
-                            key={category.id}
+                            key={index}
                             toggleCategoryInProducts={toggleCategoryInProducts}
                             setSubCategoryInProducts={setSubCategoryInProducts}
                             hideMenu={hideMenu}

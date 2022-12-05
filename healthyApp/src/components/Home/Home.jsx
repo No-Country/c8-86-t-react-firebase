@@ -9,7 +9,7 @@ import { setMenuActions } from '../../store/slices/menuActions.slice';
 import { setProfileActions } from '../../store/slices/profileActions.slice';
 import { BiArrowBack } from "react-icons/bi";
 import { setProductsActions } from '../../store/slices/productsActions.slice';
-import { getProducts } from '../../store/slices/productsClicked.slice';
+import { getProducts, getProductsByRecommendations } from '../../store/slices/productsClicked.slice';
 import ProductCard from '../Products/ProductCard/ProductCard';
 import { AiOutlineSearch } from "react-icons/ai";
 import CategoryCard from '../CategoryCard/CategoryCard';
@@ -17,6 +17,7 @@ import { getAllProducts } from '../../store/slices/allProducts.slice';
 import RecommendationCard from '../Products/RecommendationCard/RecommendationCard'
 import { useNavigate } from 'react-router-dom'
 import { Element, scroller, animateScroll as scroll } from 'react-scroll';
+import { setRecommendationActionsSlice } from '../../store/slices/recommendationActions.slice';
 
 const Home = () => {
     const navigate = useNavigate()
@@ -51,19 +52,35 @@ const Home = () => {
         }))
 
 
+        const clearRecommendation = () => dispatch(setRecommendationActionsSlice(
+            {
+                recommendationIsClick: {
+                    toggle: false,
+                    categoryName: '',
+                }
+            }
+        ))
 
     const backHome = () => {
         hideMenu()
         hideProfile()
         clearProducts()
+        clearRecommendation()
     }
 
+    const recommendation = useSelector(state => state.recommendationActionsSlice)
     //Traer productos específicos de acuerdo a categoria
 
     useEffect(() => {
         const productsClicked = () => dispatch(getProducts(productsActions?.subcategoryIsClick.subcategoryName))
         productsClicked()
     }, [productsActions?.subcategoryIsClick.subcategoryName])
+
+    //Traer productos desde recomendaciones
+    useEffect(() => {
+        const productsClicked = () => dispatch(getProductsByRecommendations(recommendation?.recommendationIsClick.categoryName))
+        productsClicked()
+    }, [ recommendation?.recommendationIsClick.categoryName])
 
     //Petición de todos los productos
     useEffect(() => {
@@ -102,6 +119,7 @@ const Home = () => {
     }, [categoryHomeActions])
 
 
+    
 
 
     return (
@@ -150,70 +168,98 @@ const Home = () => {
 
                                 </>
                                 :
-                                <>
-                                    <h2>Encontremos lo que necesitas !</h2>
-
-                                    <form className='Home__search__bar'>
-                                        <input type="text" placeholder='¿Qué está buscando?' />
-                                        <button className='Home__search__bar__btn'>
-                                            <AiOutlineSearch />
+                                recommendation?.recommendationIsClick.categoryName ?
+                                    <>
+                                        <button className='back__button' onClick={backHome}>
+                                            <BiArrowBack />
                                         </button>
-                                    </form>
+                                        <div className='Home__content__products__filter'>
+                                            <div className='Home__content_products__filter__header'>
+                                                <h2>{recommendation?.recommendationIsClick.categoryName}</h2>
+                                            </div>
+                                            <div className='Home__content_products__filter__products'>
+                                                {
+                                                    productsFilterBySubcategory?.map(subcategory => (
+                                                        subcategory?.map(product => (
+                                                            <div className='products__card' key={product?.id} onClick={() => navigate(`/product/${product.id}`)}>
+                                                                <ProductCard
+                                                                    product={product}
+    
+                                                                />
+                                                            </div>
+                                                        ))
+                                                    ))
+                                                    
+                                                }
+                                            </div>
 
-                                    <div className='Home__categories'>
-                                        {
-                                            categoryHome?.map((category, index) => (
-                                                <div className='category__card' key={index}>
-                                                    <CategoryCard
-                                                        name={category.categoryName}
-                                                        key={category.id}
+                                        </div>
+                                    </>
+                                    :
+                                    <>
+                                        <h2>Encontremos lo que necesitas !</h2>
 
-                                                    />
-                                                </div>
-                                            ))
-                                        }
-                                    </div>
+                                        <form className='Home__search__bar'>
+                                            <input type="text" placeholder='¿Qué está buscando?' />
+                                            <button className='Home__search__bar__btn'>
+                                                <AiOutlineSearch />
+                                            </button>
+                                        </form>
 
-                                    <div className='Home__products'>
+                                        <div className='Home__categories'>
+                                            {
+                                                categoryHome?.map((category, index) => (
+                                                    <div className='category__card' key={index}>
+                                                        <CategoryCard
+                                                            name={category.categoryName}
+                                                            key={category.id}
 
-                                        {
-                                            categoryHomeActions.categoryHomeIsClick.toggle &&
-                                                productsRandomToCategory?.length > 0 ?
-                                                productsRandomToCategory?.map((product, index) => (
-                                                    <div className='products__card' key={product.id} onClick={() => navigate(`/product/${product.id}`)} id='slider'>
-
-                                                        <ProductCard
-                                                            product={product}
-                                                            category={categoryHomeActions.categoryHomeIsClick.categoryName}
                                                         />
-
                                                     </div>
                                                 ))
-                                                :
-                                                allProducts?.map((product, index) => (
-                                                    <div className='products__card' key={product.id} onClick={() => navigate(`/product/${product.id}`)} id='slider'>
-                                                        <ProductCard
-                                                            product={product}
+                                            }
+                                        </div>
+
+                                        <div className='Home__products'>
+
+                                            {
+                                                categoryHomeActions.categoryHomeIsClick.toggle &&
+                                                    productsRandomToCategory?.length > 0 ?
+                                                    productsRandomToCategory?.map((product, index) => (
+                                                        <div className='products__card' key={product.id} onClick={() => navigate(`/product/${product.id}`)} id='slider'>
+
+                                                            <ProductCard
+                                                                product={product}
+                                                                category={categoryHomeActions.categoryHomeIsClick.categoryName}
+                                                            />
+
+                                                        </div>
+                                                    ))
+                                                    :
+                                                    allProducts?.map((product, index) => (
+                                                        <div className='products__card' key={product.id} onClick={() => navigate(`/product/${product.id}`)} id='slider'>
+                                                            <ProductCard
+                                                                product={product}
+                                                            />
+                                                        </div>
+                                                    ))
+                                            }
+
+                                        </div>
+                                        <p className='title__recommendations'>Recomendados para ti</p>
+                                        <div className='Home__recommendations'>
+                                            {
+                                                category &&
+                                                category?.map((category, index) => (
+                                                    <div className='recommendations__card' key={index}>
+                                                        <RecommendationCard
+                                                            category={category}
                                                         />
                                                     </div>
                                                 ))
-                                        }
-
-                                    </div>
-                                    <p className='title__recommendations'>Recomendados para ti</p>
-                                    <div className='Home__recommendations'>
-                                        {
-                                            category &&
-                                            category?.map(category => (
-                                                <div className='recommendations__card' key={category.id}>
-                                                    <RecommendationCard
-                                                        category={category}
-                                                    />
-                                                </div>
-                                            ))
-                                        }
-                                    </div>
-                                </>
+                                            }
+                                        </div>
+                                    </>
 
 
                         }
