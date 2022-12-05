@@ -1,6 +1,8 @@
 import {createSlice} from '@reduxjs/toolkit'
 import axios from 'axios'
 
+import {setLoading} from './loading.slice'
+
 export const productsClickedSlice = createSlice({
     name: 'productsClicked',
     initialState:'',
@@ -12,6 +14,7 @@ export const productsClickedSlice = createSlice({
 export const {setProductClicked} = productsClickedSlice.actions
 
 export const getProducts = (productCategory) => (dispatch)=>{
+    dispatch(setLoading(true))
     const URL = `https://us-central1-saine-api.cloudfunctions.net/app/api/products`
     axios.get(URL)
         .then(res => {
@@ -26,9 +29,10 @@ export const getProducts = (productCategory) => (dispatch)=>{
 
             dispatch(setProductClicked(filterProducts))
 
-        })
+        }).finally(() => dispatch(setLoading(false)))
 }
 export const getProductsByRecommendations = (productCategory)=>(dispatch)=>{
+    dispatch(setLoading(true))
     const URL = `https://us-central1-saine-api.cloudfunctions.net/app/api/products`
     let filterProducts =[]
     let filter = []
@@ -123,7 +127,7 @@ export const getProductsByRecommendations = (productCategory)=>(dispatch)=>{
 
             dispatch(setProductClicked(filterProducts))
 
-        })
+        }).finally(() => dispatch(setLoading(false)))
 }
 
 export default productsClickedSlice.reducer

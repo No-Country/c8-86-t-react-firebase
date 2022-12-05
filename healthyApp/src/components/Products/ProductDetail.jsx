@@ -15,11 +15,15 @@ import Container from 'react-bootstrap/Container';
 import './productDetail.css'
 import {AiOutlineHeart, AiFillHeart} from 'react-icons/ai'
 
+import {setLoading} from '../../store/slices/loading.slice'
+import { useDispatch, useSelector } from 'react-redux'
 
 
 const ProductDetail = () => {
     const navigate = useNavigate()
-   // const dispatch = useDispatch()
+    const dispatch = useDispatch()
+
+    //const loading = useSelector(state => state.setLoading())
 
    // const productItem = useSelector(state => state.productItem)
    // const details = () => dispatch(setProductItem())
@@ -31,7 +35,7 @@ const ProductDetail = () => {
     const backHome = () => navigate('/')
 
     useEffect(() => {
-        axios.get(`https://us-central1-saine-api.cloudfunctions.net/app/api/products/${id}`).then(data => setDetailProduct(data.data))
+        axios.get(`https://us-central1-saine-api.cloudfunctions.net/app/api/products/${id}`).then(data => setDetailProduct(data.data)).finally(() => dispatch(setLoading(false)))
        // const p = () => dispatch(getProductsItem(id));
       //  p()
     },[])
