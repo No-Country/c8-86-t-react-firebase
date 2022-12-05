@@ -3,6 +3,8 @@ import './ProductCard.css'
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { useNavigate } from 'react-router-dom';
 
+
+
 const oferts = [
     '25 %',
     '45 %',
@@ -14,6 +16,7 @@ const oferts = [
 const ProductCard = ({ product, category }) => {
     const [index, setIndex] = useState()
 
+    
 
     useEffect(() => {
         setIndex(Math.floor(Math.random() * (oferts.length - 0) + 0))
