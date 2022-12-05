@@ -6,8 +6,11 @@ import User from '../../assets/login/user.svg'
 import './Profile.css'
 
 import CerrarSesion from '../Alert/Model/CerrarSesion/CerrarSesion'
+import EditProfile from './EditProfile/EditProfile'
 
 const Profile = ({ toggleFavsProducts, toggleFavsRecipes }) => {
+
+    const navigate = useNavigate()
 
     //Estado para abrir o cerrar Modal de Cerrar Sesión 
     const [lookOption, setLookOption] = useState(false)
@@ -65,7 +68,7 @@ const Profile = ({ toggleFavsProducts, toggleFavsRecipes }) => {
                     </button>
                     <button className='Profile__menu__item disabled'>
                         <div className='Profile__menu__title'>
-                            <span className='ms-2'>Editar Perfil - Deshabilitado</span>
+                            <span className='ms-2' onClick={() => navigate('/login/edit')}>Editar Perfil</span>
                         </div>
                         
                     </button>

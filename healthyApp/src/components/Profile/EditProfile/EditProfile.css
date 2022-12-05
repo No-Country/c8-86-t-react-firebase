@@ -1,0 +1,67 @@
+
+.header_Svg {
+    width: 160px;
+    height: 160px;
+    background: #E6E6E6;
+    border-radius: 100%;
+    padding: 2%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.btnChangePhoto {
+    display: flex;
+    justify-content: end;
+    align-items: start;
+}
+
+.btnChangePhoto button {
+    background: #C8DEBD;
+    border: none;
+    margin-top: -2rem;
+}
+
+.header_Svg img { 
+    width: 60%; 
+    opacity: 0.5;
+    margin: auto;
+}
+
+.header_Svg button {
+    width: 24px;
+    border-radius: 50%;
+}
+
+/**/
+
+
+.form-general input {
+    border: none;
+    border-radius: 0;
+    border-bottom: 2px solid #B8B8B8;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.form-label {
+    color: red;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    color: #2C400F
+}
+
+.saveChange {
+    margin-left: 35%;
+}
+
+.saveChange button {
+    width: 100%;
+    border: none;
+    color: #2C400F;
+    font-size: 14px;
+    font-weight: 500;
+}

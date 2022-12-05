@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
 :root {
     --PrincipalColor: #C8DEBD;
 }
@@ -8,4 +14,8 @@
 
 .lineBottom {
     border-bottom: rgb(174, 174, 178) 1px solid;
+}
+
+.opacity {
+    opacity: 0.5;
 }
