@@ -13,14 +13,14 @@ const MenuHeader = ({ category, toggleCategoryInProducts, setSubCategoryInProduc
                 (category?.category === productsActions.categoryIsClick.categoryName) &&
                 <div className='MenuHeader__subcategory'>
                     {
-                        category?.subcategories.map(subcategory => (
+                        category?.subcategories.map((subcategory,index) => (
                             <button
                                 onClick={() => {
                                     setSubCategoryInProducts(subcategory, category?.category)
                                     hideMenu()
                                 }
                                 }
-                                key={subcategory.id}
+                                key={index}
                             >
                                 {subcategory}
                             </button>
