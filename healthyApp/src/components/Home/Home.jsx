@@ -16,8 +16,10 @@ import CategoryCard from '../CategoryCard/CategoryCard';
 import { getAllProducts } from '../../store/slices/allProducts.slice';
 import RecommendationCard from '../Products/RecommendationCard/RecommendationCard'
 import { useNavigate } from 'react-router-dom'
-import { Element, scroller, animateScroll as scroll } from 'react-scroll';
 import { setRecommendationActionsSlice } from '../../store/slices/recommendationActions.slice';
+import { useForm } from 'react-hook-form'
+import { getSearch, setSearchSlice } from '../../store/slices/search.slice'
+
 
 const Home = () => {
     const navigate = useNavigate()
@@ -31,6 +33,7 @@ const Home = () => {
     const categoryHome = useSelector(state => state.categoryHomeSlice)
     const categoryHomeActions = useSelector(state => state.categoryHomeActionsSlice)
     const category = useSelector(state => state.categorySlice)
+    const searchResult = useSelector(state => state.searchSlice)
     // console.log(categoryHomeActions)
 
     //Metodos para estados globales de control de vista
@@ -52,20 +55,22 @@ const Home = () => {
         }))
 
 
-        const clearRecommendation = () => dispatch(setRecommendationActionsSlice(
-            {
-                recommendationIsClick: {
-                    toggle: false,
-                    categoryName: '',
-                }
+    const clearRecommendation = () => dispatch(setRecommendationActionsSlice(
+        {
+            recommendationIsClick: {
+                toggle: false,
+                categoryName: '',
             }
-        ))
+        }
+    ))
+    const clearSearch = () => dispatch(setSearchSlice(''))
 
     const backHome = () => {
         hideMenu()
         hideProfile()
         clearProducts()
         clearRecommendation()
+        clearSearch()
     }
 
     const recommendation = useSelector(state => state.recommendationActionsSlice)
@@ -80,7 +85,7 @@ const Home = () => {
     useEffect(() => {
         const productsClicked = () => dispatch(getProductsByRecommendations(recommendation?.recommendationIsClick.categoryName))
         productsClicked()
-    }, [ recommendation?.recommendationIsClick.categoryName])
+    }, [recommendation?.recommendationIsClick.categoryName])
 
     //Petición de todos los productos
     useEffect(() => {
@@ -105,7 +110,6 @@ const Home = () => {
             filterProducts = allProducts.slice(second_number, first_number)
         }
         else if (first_number === second_number) {
-
             first_number = 1
             second_number = 5
             filterProducts = allProducts.slice(first_number, second_number)
@@ -119,7 +123,25 @@ const Home = () => {
     }, [categoryHomeActions])
 
 
-    
+    //Funcionalidad de búsqueda
+
+    const { register, handleSubmit, reset } = useForm()
+    const [errorInSearch, setErrorInSearch] = useState()
+
+    const search = (data) => {
+        const getSearchProducts = () => dispatch(getSearch(data?.search))
+        getSearchProducts()
+        reset({
+            'search': ''
+        })
+        console.log(searchResult)
+        if (searchResult.length === 0) {
+            setErrorInSearch(true)
+            setTimeout(() => {
+                setErrorInSearch(false)
+            }, 2000);
+        }
+    }
 
 
     return (
@@ -184,12 +206,12 @@ const Home = () => {
                                                             <div className='products__card' key={product?.id} onClick={() => navigate(`/product/${product.id}`)}>
                                                                 <ProductCard
                                                                     product={product}
-    
+
                                                                 />
                                                             </div>
                                                         ))
                                                     ))
-                                                    
+
                                                 }
                                             </div>
 
@@ -199,66 +221,100 @@ const Home = () => {
                                     <>
                                         <h2>Encontremos lo que necesitas !</h2>
 
-                                        <form className='Home__search__bar'>
-                                            <input type="text" placeholder='¿Qué está buscando?' />
+                                        <form className='Home__search__bar' onSubmit={handleSubmit(search)}>
+                                            <input type="text" placeholder='¿Qué está buscando?' {...register('search')} />
                                             <button className='Home__search__bar__btn'>
                                                 <AiOutlineSearch />
                                             </button>
                                         </form>
+                                        {
+                                            errorInSearch &&
+                                                <div>
+                                                    No se encontrarón resultados
+                                                </div>
+                                        }
+                                        {
+                                            (searchResult.length > 0) ?
+                                                <>
+                                                    <button className='back__button' onClick={backHome} style={{ top: '27vh' }}>
+                                                        <BiArrowBack />
+                                                    </button>
+                                                    <div className='Home__content__products__filter'>
+                                                        <div className='Home__content_products__filter__products'>
+                                                            {
+                                                                searchResult?.map((product, index) => (
+                                                                    <div className='products__card' key={product.id} onClick={() => navigate(`/product/${product.id}`)} >
+                                                                        <ProductCard
+                                                                            product={product}
+                                                                        />
 
-                                        <div className='Home__categories'>
-                                            {
-                                                categoryHome?.map((category, index) => (
-                                                    <div className='category__card' key={index}>
-                                                        <CategoryCard
-                                                            name={category.categoryName}
-                                                            key={category.id}
-
-                                                        />
-                                                    </div>
-                                                ))
-                                            }
-                                        </div>
-
-                                        <div className='Home__products'>
-
-                                            {
-                                                categoryHomeActions.categoryHomeIsClick.toggle &&
-                                                    productsRandomToCategory?.length > 0 ?
-                                                    productsRandomToCategory?.map((product, index) => (
-                                                        <div className='products__card' key={product.id} onClick={() => navigate(`/product/${product.id}`)} id='slider'>
-
-                                                            <ProductCard
-                                                                product={product}
-                                                                category={categoryHomeActions.categoryHomeIsClick.categoryName}
-                                                            />
-
+                                                                    </div>
+                                                                ))
+                                                            }
                                                         </div>
-                                                    ))
-                                                    :
-                                                    allProducts?.map((product, index) => (
-                                                        <div className='products__card' key={product.id} onClick={() => navigate(`/product/${product.id}`)} id='slider'>
-                                                            <ProductCard
-                                                                product={product}
-                                                            />
-                                                        </div>
-                                                    ))
-                                            }
 
-                                        </div>
-                                        <p className='title__recommendations'>Recomendados para ti</p>
-                                        <div className='Home__recommendations'>
-                                            {
-                                                category &&
-                                                category?.map((category, index) => (
-                                                    <div className='recommendations__card' key={index}>
-                                                        <RecommendationCard
-                                                            category={category}
-                                                        />
                                                     </div>
-                                                ))
-                                            }
-                                        </div>
+
+                                                </>
+                                                :
+                                                <>
+                                                    <div className='Home__categories'>
+                                                        {
+                                                            categoryHome?.map((category, index) => (
+                                                                <div className='category__card' key={index}>
+                                                                    <CategoryCard
+                                                                        name={category.categoryName}
+                                                                        key={category.id}
+
+                                                                    />
+                                                                </div>
+                                                            ))
+                                                        }
+                                                    </div>
+
+                                                    <div className='Home__products'>
+
+                                                        {
+                                                            categoryHomeActions.categoryHomeIsClick.toggle &&
+                                                                productsRandomToCategory?.length > 0 ?
+                                                                productsRandomToCategory?.map((product, index) => (
+                                                                    <div className='products__card' key={product.id} onClick={() => navigate(`/product/${product.id}`)} id='slider'>
+
+                                                                        <ProductCard
+                                                                            product={product}
+                                                                            category={categoryHomeActions.categoryHomeIsClick.categoryName}
+                                                                        />
+
+                                                                    </div>
+                                                                ))
+                                                                :
+                                                                allProducts?.map((product, index) => (
+                                                                    <div className='products__card' key={product.id} onClick={() => navigate(`/product/${product.id}`)} id='slider'>
+                                                                        <ProductCard
+                                                                            product={product}
+                                                                        />
+                                                                    </div>
+                                                                ))
+                                                        }
+
+                                                    </div>
+                                                    <p className='title__recommendations'>Recomendados para ti</p>
+                                                    <div className='Home__recommendations'>
+                                                        {
+                                                            category &&
+                                                            category?.map((category, index) => (
+                                                                <div className='recommendations__card' key={index}>
+                                                                    <RecommendationCard
+                                                                        category={category}
+                                                                    />
+                                                                </div>
+                                                            ))
+                                                        }
+                                                    </div>
+                                                </>
+                                        }
+
+
                                     </>
 
 

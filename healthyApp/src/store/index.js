@@ -13,6 +13,7 @@ import categorySlice from './slices/category.slice'
 import categoryHomeSlice from './slices/categoryHome.slice'
 import categoryHomeActionsSlice from './slices/categoryHomeActions.slice'
 import recommendationActionsSlice from './slices/recommendationActions.slice'
+import searchSlice from './slices/search.slice'
 
 export default configureStore({
     reducer:{
@@ -27,7 +28,9 @@ export default configureStore({
         categoryHomeSlice,
         categoryHomeActionsSlice,
         productItemSlice,
-        recommendationActionsSlice
+        recommendationActionsSlice,
+        searchSlice
+
 
     }
 })
