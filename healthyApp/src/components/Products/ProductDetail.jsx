@@ -14,6 +14,8 @@ import { useState } from 'react'
 import Container from 'react-bootstrap/Container';
 import './productDetail.css'
 import {AiOutlineHeart, AiFillHeart} from 'react-icons/ai'
+import {useAuth} from '../../context/AuthContext'
+import {useSelector} from 'react-redux'
 
 import {setLoading} from '../../store/slices/loading.slice'
 import { useDispatch, useSelector } from 'react-redux'
@@ -21,6 +23,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 const ProductDetail = () => {
     const navigate = useNavigate()
+
     const dispatch = useDispatch()
 
     //const loading = useSelector(state => state.setLoading())
@@ -28,23 +31,84 @@ const ProductDetail = () => {
    // const productItem = useSelector(state => state.productItem)
    // const details = () => dispatch(setProductItem())
 
+
     const {id} = useParams()
     const [detailProduct, setDetailProduct] = useState({})
-    const [statusFavorite, setStatusFavorite] = useState(false)
+    
 
     const backHome = () => navigate('/')
 
     useEffect(() => {
+
         axios.get(`https://us-central1-saine-api.cloudfunctions.net/app/api/products/${id}`).then(data => setDetailProduct(data.data)).finally(() => dispatch(setLoading(false)))
        // const p = () => dispatch(getProductsItem(id));
       //  p()
+
     },[])
 
-    //console.log(detailProduct);
-    // console.log(id)
-    // console.log(detailProduct)
-    //details();
-    //console.log(productItem)
+   
+    const [statusFavorite, setStatusFavorite] = useState(false)
+    const { user } = useAuth()
+    
+
+    /* 
+        {
+            userFavorites: user,
+            favoritesArray:[
+                detailProduct
+            ]
+        }
+    */
+
+    const [favorites, setFavorites] = useState(localStorage.getItem('favorites'))
+    // console.log(favorites)
+
+    const [productIsInFavorites, setProductIsInFavorites] = useState(false)
+
+    useEffect(() => {
+        if(favorites){
+            let result=favorites?.favoritesArray?.filter(favorite => favorite.id === detailProduct?.id)
+            if(result){
+                setProductIsInFavorites(true)
+            }
+        }
+    }, [])
+
+    console.log(productIsInFavorites)
+
+    const addFavorites = () =>{
+        setStatusFavorite(true)
+        if(favorites){
+            if(favorites?.userFavorites?.uid === user.uid){
+                let result=favorites?.favoritesArray?.filter(favorite => favorite.name === detailProduct?.name)
+                if(!result){
+                    favorites?.favoritesArray.push(detailProduct)
+                    localStorage.setItem('favorites',JSON.stringify(favorites) )
+                }
+            }
+            else{
+                let newFavorites = {
+                    userFavorites: user,
+                    favoritesArray:[
+                        detailProduct
+                    ]
+                }
+                localStorage.setItem('favorites',JSON.stringify(newFavorites))
+            }
+        }
+        else{
+            let newFavorites = {
+                userFavorites: user,
+                favoritesArray:[
+                    detailProduct
+                ]
+            }
+            localStorage.setItem('favorites',JSON.stringify(newFavorites))
+
+        }
+    }
+    
+
     return (
         <div>
             <header className='header-menu d-flex justify-content-start align-items-center'>
@@ -59,7 +123,7 @@ const ProductDetail = () => {
 
                 <div className='imageProduct'>
                     <img src={detailProduct.imageUrl} alt="" />
-                    <button className='squireLike border border-0' onClick={() => setStatusFavorite(!statusFavorite)}>
+                    <button className='squireLike border border-0' onClick={addFavorites}>
                         {
                             statusFavorite ? <AiFillHeart/> : <AiOutlineHeart/>
                         }

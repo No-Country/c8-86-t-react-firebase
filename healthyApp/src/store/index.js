@@ -14,6 +14,7 @@ import categoryHomeSlice from './slices/categoryHome.slice'
 import categoryHomeActionsSlice from './slices/categoryHomeActions.slice'
 import recommendationActionsSlice from './slices/recommendationActions.slice'
 import searchSlice from './slices/search.slice'
+import favoritesSlice from './slices/favorites.slice'
 
 import loadingSlice from './slices/loading.slice'
 
@@ -32,6 +33,8 @@ export default configureStore({
         productItemSlice,
         recommendationActionsSlice,
         searchSlice,
-        loadingSlice: loadingSlice
+        favoritesSlice,
+        loadingSlice
+
     }
 })
