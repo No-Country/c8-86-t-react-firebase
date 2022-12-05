@@ -27,9 +27,12 @@ export const getSearch = (search) => (dispatch)=>{
                 }
             })
 
-            // console.log(filterProducts)
+            
+                console.log(filterProducts)
+                dispatch(setSearchSlice(filterProducts))
+            
 
-            dispatch(setSearchSlice(filterProducts))
+            
 
         }).finally(() => dispatch(setLoading(false)))
 }
