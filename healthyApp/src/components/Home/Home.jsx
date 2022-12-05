@@ -64,6 +64,7 @@ const Home = () => {
         }
     ))
     const clearSearch = () => dispatch(setSearchSlice(''))
+    const [searchClick, setSearchClick] = useState(false)
 
     const backHome = () => {
         hideMenu()
@@ -71,6 +72,7 @@ const Home = () => {
         clearProducts()
         clearRecommendation()
         clearSearch()
+        setSearchClick(false)
     }
 
     const recommendation = useSelector(state => state.recommendationActionsSlice)
@@ -128,20 +130,29 @@ const Home = () => {
     const { register, handleSubmit, reset } = useForm()
     const [errorInSearch, setErrorInSearch] = useState()
 
+
     const search = (data) => {
         const getSearchProducts = () => dispatch(getSearch(data?.search))
         getSearchProducts()
         reset({
             'search': ''
         })
-        console.log(searchResult)
-        if (searchResult.length === 0) {
-            setErrorInSearch(true)
-            setTimeout(() => {
-                setErrorInSearch(false)
-            }, 2000);
-        }
+        setSearchClick(true)
     }
+
+    useEffect(() => {
+        if (searchClick) {
+            if (typeof (searchResult) != Array && searchResult.length === 0) {
+                setErrorInSearch(true)
+                setTimeout(() => {
+                    setErrorInSearch(false)
+                    setSearchClick(false)
+                }, 1500);
+            }
+
+        }
+    }, [searchResult])
+
 
 
     return (
@@ -229,12 +240,12 @@ const Home = () => {
                                         </form>
                                         {
                                             errorInSearch &&
-                                                <div>
-                                                    No se encontrarón resultados
-                                                </div>
+                                            <div>
+                                                No se encontrarón resultados
+                                            </div>
                                         }
                                         {
-                                            (searchResult.length > 0) ?
+                                            (searchResult.length > 0 && searchResult != 'Not found') ?
                                                 <>
                                                     <button className='back__button' onClick={backHome} style={{ top: '27vh' }}>
                                                         <BiArrowBack />
