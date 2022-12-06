@@ -84,7 +84,7 @@ const Profile = () => {
                             <span className='ms-2'>Medios de pago - Deshabilitado</span>
                         </div>
                     </button>
-                    <button className='Profile__menu__item disabled'>
+                    <button className='Profile__menu__item'>
                         <div className='Profile__menu__title'>
                             <span className='ms-2' onClick={() => navigate('/login/edit')}>Editar Perfil</span>
                         </div>

@@ -9,6 +9,7 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
+    position: relative;
 }
 
 .btnChangePhoto {
@@ -55,7 +56,13 @@
 }
 
 .saveChange {
-    margin-left: 35%;
+    height: 60px;
+    position: absolute;
+    top:0;
+    right: 5%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .saveChange button {
@@ -64,4 +71,11 @@
     color: #2C400F;
     font-size: 14px;
     font-weight: 500;
+    background-color: transparent;
+}
+
+.errorEmail{
+    background-color: rgb(255, 196, 196);
+    color: red;
+    border-radius: 10px;
 }
