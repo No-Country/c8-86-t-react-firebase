@@ -13,12 +13,13 @@ import { useState } from 'react'
 
 import Container from 'react-bootstrap/Container';
 import './productDetail.css'
-import {AiOutlineHeart, AiFillHeart} from 'react-icons/ai'
-import {useAuth} from '../../context/AuthContext'
-import {useSelector} from 'react-redux'
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
+import { useAuth } from '../../context/AuthContext'
 
-import {setLoading} from '../../store/slices/loading.slice'
+
+import { setLoading } from '../../store/slices/loading.slice'
 import { useDispatch, useSelector } from 'react-redux'
+import { setFavorites } from '../../store/slices/favorites.slice'
 
 
 const ProductDetail = () => {
@@ -28,92 +29,108 @@ const ProductDetail = () => {
 
     //const loading = useSelector(state => state.setLoading())
 
-   // const productItem = useSelector(state => state.productItem)
-   // const details = () => dispatch(setProductItem())
+    // const productItem = useSelector(state => state.productItem)
+    // const details = () => dispatch(setProductItem())
 
 
-    const {id} = useParams()
+    const { id } = useParams()
     const [detailProduct, setDetailProduct] = useState({})
-    
+
 
     const backHome = () => navigate('/')
 
     useEffect(() => {
 
         axios.get(`https://us-central1-saine-api.cloudfunctions.net/app/api/products/${id}`).then(data => setDetailProduct(data.data)).finally(() => dispatch(setLoading(false)))
-       // const p = () => dispatch(getProductsItem(id));
-      //  p()
+        // const p = () => dispatch(getProductsItem(id));
+        //  p()
 
-    },[])
-
-   
-    const [statusFavorite, setStatusFavorite] = useState(false)
-    const { user } = useAuth()
-    
-
-    /* 
-        {
-            userFavorites: user,
-            favoritesArray:[
-                detailProduct
-            ]
-        }
-    */
-
-    const [favorites, setFavorites] = useState(localStorage.getItem('favorites'))
-    // console.log(favorites)
-
-    const [productIsInFavorites, setProductIsInFavorites] = useState(false)
-
-    useEffect(() => {
-        if(favorites){
-            let result=favorites?.favoritesArray?.filter(favorite => favorite.id === detailProduct?.id)
-            if(result){
-                setProductIsInFavorites(true)
-            }
-        }
     }, [])
 
-    console.log(productIsInFavorites)
+    const [statusFavorite, setStatusFavorite] = useState(false)
+    const { user } = useAuth()
 
-    const addFavorites = () =>{
-        setStatusFavorite(true)
-        if(favorites){
-            if(favorites?.userFavorites?.uid === user.uid){
-                let result=favorites?.favoritesArray?.filter(favorite => favorite.name === detailProduct?.name)
-                if(!result){
-                    favorites?.favoritesArray.push(detailProduct)
-                    localStorage.setItem('favorites',JSON.stringify(favorites) )
+    useEffect(() => {
+        let favorites = JSON.parse(localStorage.getItem('favorites'))
+        
+        let filter = favorites?.favoritesArray.filter(favorite => favorite.name === detailProduct.name)
+        
+        if (filter?.length > 0) {
+            // console.log('Ya esta en favoritos')
+            setStatusFavorite(true)
+        }
+    }, [detailProduct])
+
+    const toggleFavorites = () => {
+        if (statusFavorite) {
+            let favorites = JSON.parse(localStorage.getItem('favorites'))
+            //Funcion para cuando ya esta en favoritos
+            setStatusFavorite(false)
+            if (favorites?.userFavorites?.uid === user.uid) {
+                let result = favorites?.favoritesArray?.find(favorite => favorite.name === detailProduct.name)
+                let index=favorites?.favoritesArray.indexOf(result)
+                favorites?.favoritesArray.splice(index,1)
+                localStorage.setItem('favorites', JSON.stringify(favorites))
+                // console.log(favorites)
+            }
+
+        }
+        else {
+            //Función para cuando no está en favoritos
+            setStatusFavorite(true)
+            let favorites = JSON.parse(localStorage.getItem('favorites'))
+            if (favorites) {
+                if (favorites?.userFavorites?.uid === user.uid) {
+                    // console.log('Usuario existia')
+
+                    let result = favorites?.favoritesArray.filter(favorite => favorite.name === detailProduct.name)
+
+                    if (result.length > 0) {
+                        // console.log('Ya existia')
+                        console.log(favorites?.favoritesArray)
+                    }
+                    else {
+                        // console.log('No existia')
+                        favorites?.favoritesArray.push(detailProduct)
+                        localStorage.setItem('favorites', JSON.stringify(favorites))
+                    }
+                }
+                else {
+                    // console.log('No existe usuario')
+                    let toSave = {
+                        userFavorites: user,
+                        favoritesArray: [
+                            detailProduct
+                        ]
+                    }
+                    localStorage.setItem('favorites', JSON.stringify(toSave))
+                    console.log(JSON.parse(localStorage.getItem('favorites')))
                 }
             }
-            else{
+            else {
+                // console.log('No existia favorites')
                 let newFavorites = {
                     userFavorites: user,
-                    favoritesArray:[
+                    favoritesArray: [
                         detailProduct
                     ]
                 }
-                localStorage.setItem('favorites',JSON.stringify(newFavorites))
+                localStorage.setItem('favorites', JSON.stringify(newFavorites))
+                console.log(JSON.parse(localStorage.getItem('favorites')))
             }
         }
-        else{
-            let newFavorites = {
-                userFavorites: user,
-                favoritesArray:[
-                    detailProduct
-                ]
-            }
-            localStorage.setItem('favorites',JSON.stringify(newFavorites))
 
-        }
+        const setFavoritesSlice = () => dispatch(setFavorites(JSON.parse(localStorage.getItem('favorites'))))
+        setFavoritesSlice()
+
     }
-    
+
 
     return (
         <div>
             <header className='header-menu d-flex justify-content-start align-items-center'>
                 <div>
-                    <button className='border border-0' onClick={backHome}> 
+                    <button className='border border-0' onClick={backHome}>
                         <img src={Arrow} alt="arrow back" />
                     </button>
                 </div>
@@ -123,9 +140,9 @@ const ProductDetail = () => {
 
                 <div className='imageProduct'>
                     <img src={detailProduct.imageUrl} alt="" />
-                    <button className='squireLike border border-0' onClick={addFavorites}>
+                    <button className='squireLike border border-0' onClick={toggleFavorites}>
                         {
-                            statusFavorite ? <AiFillHeart/> : <AiOutlineHeart/>
+                            statusFavorite ? <AiFillHeart /> : <AiOutlineHeart />
                         }
                     </button>
                 </div>

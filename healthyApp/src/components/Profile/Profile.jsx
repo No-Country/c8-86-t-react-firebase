@@ -7,10 +7,14 @@ import './Profile.css'
 
 import CerrarSesion from '../Alert/Model/CerrarSesion/CerrarSesion'
 import EditProfile from './EditProfile/EditProfile'
+import { setFavoritesActionsSlice } from '../../store/slices/favoritesActions.slice'
+import { useDispatch } from 'react-redux'
+import { setProfileActions } from '../../store/slices/profileActions.slice'
 
-const Profile = ({ toggleFavsProducts, toggleFavsRecipes }) => {
+const Profile = () => {
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     //Estado para abrir o cerrar Modal de Cerrar Sesión 
     const [lookOption, setLookOption] = useState(false)
@@ -34,6 +38,14 @@ const Profile = ({ toggleFavsProducts, toggleFavsRecipes }) => {
 
     useEffect(() => { setLookOption(false) }, [])
 
+    //Función mostrar favoritos de productos
+
+    const showFavorites = () => dispatch(setFavoritesActionsSlice({
+        favoritesIsShow: true
+    }))
+    
+
+
     if (user != null) {
         return (
             <div className='Profile'>
@@ -51,10 +63,16 @@ const Profile = ({ toggleFavsProducts, toggleFavsRecipes }) => {
                         {
                             favsIsShow &&
                             <div className='Profile__menu__dropdown mb-2'>
-                                <button className='Profile__menu__dropdown__item' onClick={toggleFavsProducts}>
+                                <button className='Profile__menu__dropdown__item' 
+                                onClick={()=>{
+                                    showFavorites()
+                                    const hideProfile = () => dispatch(setProfileActions({ profileIsShow: false }))
+                                    hideProfile()
+                                }
+                                }>
                                     <span className='ms-3'>Productos</span>
                                 </button>
-                                <button className='Profile__menu__dropdown__item' onClick={toggleFavsRecipes}>
+                                <button className='Profile__menu__dropdown__item disabled'>
                                     <span className='ms-3'>Recetas</span>
                                 </button>
                             </div>
