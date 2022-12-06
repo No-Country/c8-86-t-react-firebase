@@ -1,0 +1,13 @@
+.Modal{
+    background-color: #4A8044;
+    width: 80%;
+    position: relative;
+    left: 10%;
+    right: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2%;
+    border-radius: 10px;
+    color: white;
+}
