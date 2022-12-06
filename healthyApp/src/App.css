@@ -6,6 +6,7 @@ body {
 
 :root {
     --PrincipalColor: #C8DEBD;
+    --ColorTitle: #2C400F;
 }
 
 .disabled{
@@ -19,3 +20,7 @@ body {
 .opacity {
     opacity: 0.5;
 }
+
+.color { color: #4A8044; }
+
+.colorTitle { color: var(--ColorTitle); }
