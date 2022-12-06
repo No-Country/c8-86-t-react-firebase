@@ -52,24 +52,29 @@ const ProductDetail = () => {
 
     useEffect(() => {
         let favorites = JSON.parse(localStorage.getItem('favorites'))
-        
-        let filter = favorites?.favoritesArray.filter(favorite => favorite.name === detailProduct.name)
-        
+
+        let filter = favorites?.favoritesArray.filter(favorite => favorite?.detailProduct?.name === detailProduct.name)
+
         if (filter?.length > 0) {
             // console.log('Ya esta en favoritos')
             setStatusFavorite(true)
         }
     }, [detailProduct])
 
+    console.log(JSON.parse(localStorage.getItem('favorites')))    
+
     const toggleFavorites = () => {
         if (statusFavorite) {
             let favorites = JSON.parse(localStorage.getItem('favorites'))
+
             //Funcion para cuando ya esta en favoritos
             setStatusFavorite(false)
             if (favorites?.userFavorites?.uid === user.uid) {
+
                 let result = favorites?.favoritesArray?.find(favorite => favorite.name === detailProduct.name)
-                let index=favorites?.favoritesArray.indexOf(result)
-                favorites?.favoritesArray.splice(index,1)
+                let index = favorites?.favoritesArray.indexOf(result)
+                favorites?.favoritesArray.splice(index, 1)
+                // console.log(favorites)
                 localStorage.setItem('favorites', JSON.stringify(favorites))
                 // console.log(favorites)
             }
@@ -91,7 +96,8 @@ const ProductDetail = () => {
                     }
                     else {
                         // console.log('No existia')
-                        favorites?.favoritesArray.push(detailProduct)
+                        favorites?.favoritesArray.push({id:id,detailProduct:detailProduct})
+                        console.log(favorites)
                         localStorage.setItem('favorites', JSON.stringify(favorites))
                     }
                 }
@@ -100,7 +106,11 @@ const ProductDetail = () => {
                     let toSave = {
                         userFavorites: user,
                         favoritesArray: [
-                            detailProduct
+                            {
+                                id: id,
+                                detailProduct: detailProduct
+                            }
+
                         ]
                     }
                     localStorage.setItem('favorites', JSON.stringify(toSave))
@@ -112,7 +122,11 @@ const ProductDetail = () => {
                 let newFavorites = {
                     userFavorites: user,
                     favoritesArray: [
-                        detailProduct
+                        {
+                            id: id,
+                            detailProduct: detailProduct
+                        }
+                        
                     ]
                 }
                 localStorage.setItem('favorites', JSON.stringify(newFavorites))
