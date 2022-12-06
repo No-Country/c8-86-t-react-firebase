@@ -20,8 +20,8 @@ const EditProfile = () => {
     const { handleSubmit, reset, register } = useForm()
     const [wrongEmail, setWrongEmail] = useState(false)
     const [profileUpdated, setProfileUpdated] = useState(false)
-    const [initialEmail, setInitialEmail] = useState('example@email.com')
-    const [initialPhone, setInitialPhone] = useState('233456789')
+    const [initialEmail, setInitialEmail] = useState('example@mail.com')
+    const [initialPhone, setInitialPhone] = useState('322456789')
     const [initialCity, setInitialCity] = useState('Buenos Aires')
 
     useEffect(() => {
@@ -121,7 +121,7 @@ const EditProfile = () => {
 
                     <Form className='p-3' onSubmit={handleSubmit(submit)}>
                         <Form.Group className='mt-3 form-general' controlId='formBasicEmail'>
-                            <Form.Control className='' type='text' placeholder={`${initialEmail}`} name='email' required {...register('email')} />
+                            <Form.Control className='' type='text' placeholder={`${initialEmail}`}  name='email' required {...register('email')} />
                             <Form.Label className='ms-3'>Email </Form.Label>
                             {
                                 wrongEmail &&
