@@ -180,3 +180,14 @@ h2{
     scroll-snap-align: center;
     flex: 0 0 10%;
 }
+
+.nofavs{
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90vw;
+    height: 20vh;
+    
+    
+}
