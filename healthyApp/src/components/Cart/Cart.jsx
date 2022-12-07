@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import Arrow from '../../assets/arrow-back.svg'
 import { useNavigate } from 'react-router-dom'
+import { async } from '@firebase/util'
 
 const Cart = () => {
     const navigate = useNavigate()
@@ -14,21 +15,31 @@ const Cart = () => {
     const [checkCant, setCheckCant] = useState(1)
 
     const url = `https://us-central1-saine-api.cloudfunctions.net/app/api/products/`;
+    let arrayAux = [];
 
     useEffect(() => {
         setCheckCant(1)
 
-        const l = JSON.parse(localStorage.getItem('addProduct'));
-        console.log(JSON.parse(localStorage.getItem('addProduct')));
-        const arr = [];
-        arr.push(l.id);
-        console.log(l.id);
+        
         /*arr.forEach(i => {
             axios.get(`https://us-central1-saine-api.cloudfunctions.net/app/api/products/${i.id}`).then(data => setDetailProduct(data.data))
         });*/
-    },[]);
+    },[localStorage.getItem('addProduct')]);
+    
 
-    console.log(detailProduct);
+    const l = JSON.parse(localStorage.getItem('addProduct'));
+    console.log(JSON.parse(localStorage.getItem('addProduct')));
+    /*arrayAux.push({id: 1, quantity: 5});
+    arrayAux.push({id: 7, quantity: 5});*/
+    arrayAux.push(l);
+    console.log("Array: ", arrayAux);
+    //console.log(detailProduct);
+    
+    arrayAux.forEach( async (element) => {
+        await axios.get(`https://us-central1-saine-api.cloudfunctions.net/app/api/products/${element.id}`).then(data => setDetailProduct(data.data))
+    });
+    
+    //localStorage.setItem('addProduct',JSON.parse(arrayAux));
 
     return (
         <>
@@ -62,6 +73,7 @@ const Cart = () => {
                                 </div>
                             </div>
                     </div>
+                    <button className='color border border-0 m-auto w-100'>CheckOut</button>
                 </div>
             </Container>
         </>
