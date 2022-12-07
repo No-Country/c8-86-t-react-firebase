@@ -270,19 +270,20 @@ h2{
     }
     
     .Home__categories{
-        width: 65%;
+        width: 100%;
         align-self: center;
     }
+
     .Home__categories::-webkit-scrollbar{
         display: none;
     }
     .Home__content{
         width: 80%;
-        
     }
     
     .Home__products{
-        width: 100%;
+        width: 130%;
+        height: 100%;
         min-height: 30vh;
         align-self: center;
         display: flex;
@@ -292,10 +293,13 @@ h2{
         gap: 10px;
         scroll-snap-type:y mandatory;
         overflow-x: hidden;
-        overflow-y:scroll;
+        overflow-y: hidden;
     }
 
-    
-    
-
+    .Home__recommendations {
+        overflow-x: hidden;
+        margin-top: 2%;
+        gap: 1.5%;
+        width: 100%;
+    }
 }

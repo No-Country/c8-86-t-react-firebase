@@ -358,6 +358,7 @@ const Home = () => {
                                                             }
 
                                                         </div>
+                                                        <br />
                                                         <p className='title__recommendations'>Recomendados para ti</p>
                                                         <div className='Home__recommendations'>
                                                             {
