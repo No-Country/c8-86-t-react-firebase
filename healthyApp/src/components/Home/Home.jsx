@@ -200,14 +200,19 @@ const Home = () => {
                                     <div className='Home__content__products__filter'>
                                             <div className='Home__content_products__filter__header'>
                                                 <h2>Favoritos</h2>
-                                                
                                             </div>
                                             <div className='Home__content_products__filter__products'>
+                                                {
+                                                    favorites?.favoritesArray.length === 0 &&
+                                                    <div className='nofavs'>
+                                                        <h4>No tienes productos en favoritos</h4>
+                                                    </div>
+                                                }
                                                 {
                                                     favorites?.favoritesArray?.map((favorite,index) => (
                                                         <div className='products__card' key={index} onClick={() => navigate(`/product/${favorite?.id}`)}>
                                                             <ProductCard
-                                                                product={favorite}
+                                                                product={favorite.detailProduct}
                                                             />
                                                         </div>
                                                     ))
