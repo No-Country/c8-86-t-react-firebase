@@ -52,6 +52,7 @@ const ProductDetail = () => {
     const [statusCart, setStatusCart] = useState(false)
     const { user } = useAuth()
 
+    //Funcion para que cuando cargue el componente, verifique que el producto ya esta en favoritos
     useEffect(() => {
         let favorites = JSON.parse(localStorage.getItem('favorites'))
 
@@ -63,18 +64,71 @@ const ProductDetail = () => {
         }
     }, [detailProduct])
 
+    //Formato para guardar en localStorage y en slice
+    /*
+        {
+        userInCart: '',
+        productsAdd: []
+        }
+    */
 
     const addProductCart = () => {
-        let productCart = {
-            quantity: 1,
-            id: Number(id)
-        };
+        setStatusCart(!statusCart)
+        let cartSaved = JSON.parse(localStorage.getItem('cart'))
+        if(cartSaved){
+            if(cartSaved?.userInCart?.uid === user.uid){
+                console.log('Es el mismo usuario')
+                let filter = cartSaved?.productsAdd?.filter(product => product?.id === Number(id))
+                if(filter.length>0){
+                    setStatusCart(true)
+                    console.log('El producto ya esta agregado al carrito')
+                }
+                else{
+                    cartSaved?.productsAdd?.push(
+                        {
+                            quantity: 1,
+                            id: Number(id),
+                            product: detailProduct
+                        }
+                    )
+                    localStorage.setItem('cart', JSON.stringify(cartSaved))
+                }
+            }
+            else{
+                console.log('No es el mismo usuario')
+                let cart={
+                    userInCart: user,
+                    productsAdd:[
+                        {
+                            quantity: 1,
+                            id: Number(id),
+                            product: detailProduct
+                        }
+                    ]
+                }
+                localStorage.setItem('cart', JSON.stringify(cart));
+            }
+        }
+        else{
+            console.log('No existe un carrito')
+            let cart={
+                userInCart: user,
+                productsAdd:[
+                    {
+                        quantity: 1,
+                        id: Number(id),
+                        product: detailProduct
+                    }
+                ]
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
     
-        localStorage.setItem('addProduct', JSON.stringify(productCart));
+        
         //let productInCart = JSON.parse(localStorage.getItem('addProduct'));
     };
 
-    console.log(JSON.parse(localStorage.getItem('favorites')))
+    //Funcion para agregar o quitar de favoritos un producto
     const toggleFavorites = () => {
         if (statusFavorite) {
             let favorites = JSON.parse(localStorage.getItem('favorites'))
@@ -191,7 +245,6 @@ const ProductDetail = () => {
 
                 <div className='d-flex justify-content-center mt-5'>
                     <button className='border border-0  btnAtCart fw-semibold' onClick={() => {
-                        setStatusCart(!statusCart)
                         addProductCart()
                         }}> {statusCart ? "AÑADIDO" : "AÑADIR"} AL CARRITO</button>
                 </div>
