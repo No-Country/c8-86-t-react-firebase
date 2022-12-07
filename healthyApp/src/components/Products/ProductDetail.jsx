@@ -161,7 +161,7 @@ const ProductDetail = () => {
                     </button>
                 </div>
             </header>
-            <Container>
+            <Container className='p-5'>
                 <h1 className='titleProduct'>{detailProduct.category} </h1>
 
                 <div className='imageProduct'>
