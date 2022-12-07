@@ -21,6 +21,7 @@ import { setLoading } from '../../store/slices/loading.slice'
 import { useDispatch, useSelector } from 'react-redux'
 import { setFavorites } from '../../store/slices/favorites.slice'
 
+import { setCart } from '../../store/slices/cart.slice'
 
 const ProductDetail = () => {
     const navigate = useNavigate()
@@ -41,13 +42,14 @@ const ProductDetail = () => {
 
     useEffect(() => {
 
-        axios.get(`https://us-central1-saine-api.cloudfunctions.net/app/api/products/${id}`).then(data => setDetailProduct(data.data)).finally(() => dispatch(setLoading(false)))
+        axios.get(`https://us-central1-saine-api.cloudfunctions.net/app/api/products/${id}`).then(data => setDetailProduct(data.data)).finally(() => dispatch(setLoading(true)))
         // const p = () => dispatch(getProductsItem(id));
         //  p()
 
     }, [])
 
     const [statusFavorite, setStatusFavorite] = useState(false)
+    const [statusCart, setStatusCart] = useState(false)
     const { user } = useAuth()
 
     useEffect(() => {
@@ -60,6 +62,16 @@ const ProductDetail = () => {
             setStatusFavorite(true)
         }
     }, [detailProduct])
+
+    const addProductCart = () => {
+        let productCart = {
+            quantity: 1,
+            id: Number(id)
+        };
+    
+        localStorage.setItem('addProduct', JSON.stringify(productCart));
+        //let productInCart = JSON.parse(localStorage.getItem('addProduct'));
+    };
 
     const toggleFavorites = () => {
         if (statusFavorite) {
@@ -164,7 +176,10 @@ const ProductDetail = () => {
                 </div>
 
                 <div className='d-flex justify-content-center mt-5'>
-                    <button className='border border-0  btnAtCart fw-semibold'>AÑADIR AL CARRITO</button>
+                    <button className='border border-0  btnAtCart fw-semibold' onClick={() => {
+                        setStatusCart(!statusCart)
+                        addProductCart()
+                        }}> {statusCart ? "AÑADIDO" : "AÑADIR"} AL CARRITO</button>
                 </div>
             </Container>
         </div>
