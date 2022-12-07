@@ -6,7 +6,7 @@
 
 .Menu-true{
     visibility: visible;
-    height: 94vh;
+    height: 100%;
     z-index: 12;
     background-color: #F4F8EC;
     display: flex;
@@ -36,4 +36,13 @@
     background-color: transparent;
     border:none;
     min-height: 56px;
+}
+
+@media (min-width: 1200px) {
+    .Menu-true{
+        height: 100%;
+        top: 5.3vh;
+        width: 40%;
+        align-self: flex-start;
+    }
 }
