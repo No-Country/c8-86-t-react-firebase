@@ -17,6 +17,7 @@ import searchSlice from './slices/search.slice'
 import favoritesSlice from './slices/favorites.slice'
 import favoritesActionsSlice from './slices/favoritesActions.slice'
 
+import cartSlice from './slices/cart.slice'
 import loadingSlice from './slices/loading.slice'
 
 export default configureStore({
@@ -36,7 +37,7 @@ export default configureStore({
         searchSlice,
         favoritesSlice,
         loadingSlice,
-        favoritesActionsSlice
-
+        favoritesActionsSlice,
+        cartSlice
     }
 })

@@ -5,24 +5,51 @@ import Container from 'react-bootstrap/Container'
 import { AiOutlineMenu, AiOutlineShoppingCart } from "react-icons/ai"
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import Header from '../Header/Header'
-
+import Arrow from '../../assets/arrow-back.svg'
+import { useNavigate } from 'react-router-dom'
+import { async } from '@firebase/util'
 
 const Cart = () => {
-
+    const navigate = useNavigate()
     const [detailProduct, setDetailProduct] = useState({})
     const [checkCant, setCheckCant] = useState(1)
 
+    const url = `https://us-central1-saine-api.cloudfunctions.net/app/api/products/`;
+    let arrayAux = [];
+
     useEffect(() => {
         setCheckCant(1)
-        axios.get(`https://us-central1-saine-api.cloudfunctions.net/app/api/products/2`).then(data => setDetailProduct(data.data))
-    },[]);
 
-    console.log(checkCant);
+        
+        /*arr.forEach(i => {
+            axios.get(`https://us-central1-saine-api.cloudfunctions.net/app/api/products/${i.id}`).then(data => setDetailProduct(data.data))
+        });*/
+    },[localStorage.getItem('addProduct')]);
+    
+
+    const l = JSON.parse(localStorage.getItem('addProduct'));
+    console.log(JSON.parse(localStorage.getItem('addProduct')));
+    /*arrayAux.push({id: 1, quantity: 5});
+    arrayAux.push({id: 7, quantity: 5});*/
+    arrayAux.push(l);
+    console.log("Array: ", arrayAux);
+    //console.log(detailProduct);
+    
+    arrayAux.forEach( async (element) => {
+        await axios.get(`https://us-central1-saine-api.cloudfunctions.net/app/api/products/${element.id}`).then(data => setDetailProduct(data.data))
+    });
+    
+    //localStorage.setItem('addProduct',JSON.parse(arrayAux));
 
     return (
         <>
-            <Header/>
+            <header className='header-menu d-flex justify-content-start align-items-center'>
+                <div>
+                    <button className='border border-0' onClick={() => navigate('/')}> 
+                        <img src={Arrow} alt="arrow back" />
+                    </button>
+                </div>
+            </header>
             <Container>
                 <h2 className='title_cart mt-3 ms-3'>Mi Carrito</h2>
 
@@ -34,8 +61,8 @@ const Cart = () => {
                                 <img src={detailProduct.imageUrl}alt="" />
                             </div>
                                 <ul>
-                                    <li>Lorem ipsum</li>
-                                    <li>PRECIO</li>
+                                    <li>{detailProduct.name}</li>
+                                    <li><b> $ {detailProduct.price}</b></li>
                                 </ul>
                         </div>
                             <div className='addCount'>
@@ -46,6 +73,7 @@ const Cart = () => {
                                 </div>
                             </div>
                     </div>
+                    <button className='color border border-0 m-auto w-100'>CheckOut</button>
                 </div>
             </Container>
         </>
