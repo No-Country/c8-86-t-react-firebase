@@ -21,6 +21,7 @@ import { setLoading } from '../../store/slices/loading.slice'
 import { useDispatch, useSelector } from 'react-redux'
 import { setFavorites } from '../../store/slices/favorites.slice'
 
+import { setCart } from '../../store/slices/cart.slice'
 
 const ProductDetail = () => {
     const navigate = useNavigate()
@@ -41,15 +42,17 @@ const ProductDetail = () => {
 
     useEffect(() => {
 
-        axios.get(`https://us-central1-saine-api.cloudfunctions.net/app/api/products/${id}`).then(data => setDetailProduct(data.data)).finally(() => dispatch(setLoading(false)))
+        axios.get(`https://us-central1-saine-api.cloudfunctions.net/app/api/products/${id}`).then(data => setDetailProduct(data.data)).finally(() => dispatch(setLoading(true)))
         // const p = () => dispatch(getProductsItem(id));
         //  p()
 
     }, [])
 
     const [statusFavorite, setStatusFavorite] = useState(false)
+    const [statusCart, setStatusCart] = useState(false)
     const { user } = useAuth()
 
+    //Funcion para que cuando cargue el componente, verifique que el producto ya esta en favoritos
     useEffect(() => {
         let favorites = JSON.parse(localStorage.getItem('favorites'))
 
@@ -61,8 +64,71 @@ const ProductDetail = () => {
         }
     }, [detailProduct])
 
-    console.log(JSON.parse(localStorage.getItem('favorites')))    
+    //Formato para guardar en localStorage y en slice
+    /*
+        {
+        userInCart: '',
+        productsAdd: []
+        }
+    */
 
+    const addProductCart = () => {
+        setStatusCart(!statusCart)
+        let cartSaved = JSON.parse(localStorage.getItem('cart'))
+        if(cartSaved){
+            if(cartSaved?.userInCart?.uid === user.uid){
+                console.log('Es el mismo usuario')
+                let filter = cartSaved?.productsAdd?.filter(product => product?.id === Number(id))
+                if(filter.length>0){
+                    setStatusCart(true)
+                    console.log('El producto ya esta agregado al carrito')
+                }
+                else{
+                    cartSaved?.productsAdd?.push(
+                        {
+                            quantity: 1,
+                            id: Number(id),
+                            product: detailProduct
+                        }
+                    )
+                    localStorage.setItem('cart', JSON.stringify(cartSaved))
+                }
+            }
+            else{
+                console.log('No es el mismo usuario')
+                let cart={
+                    userInCart: user,
+                    productsAdd:[
+                        {
+                            quantity: 1,
+                            id: Number(id),
+                            product: detailProduct
+                        }
+                    ]
+                }
+                localStorage.setItem('cart', JSON.stringify(cart));
+            }
+        }
+        else{
+            console.log('No existe un carrito')
+            let cart={
+                userInCart: user,
+                productsAdd:[
+                    {
+                        quantity: 1,
+                        id: Number(id),
+                        product: detailProduct
+                    }
+                ]
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+    
+        
+        //let productInCart = JSON.parse(localStorage.getItem('addProduct'));
+    };
+
+    //Funcion para agregar o quitar de favoritos un producto
     const toggleFavorites = () => {
         if (statusFavorite) {
             let favorites = JSON.parse(localStorage.getItem('favorites'))
@@ -149,7 +215,7 @@ const ProductDetail = () => {
                     </button>
                 </div>
             </header>
-            <Container>
+            <Container className='p-5'>
                 <h1 className='titleProduct'>{detailProduct.category} </h1>
 
                 <div className='imageProduct'>
@@ -178,7 +244,9 @@ const ProductDetail = () => {
                 </div>
 
                 <div className='d-flex justify-content-center mt-5'>
-                    <button className='border border-0  btnAtCart fw-semibold'>AÑADIR AL CARRITO</button>
+                    <button className='border border-0  btnAtCart fw-semibold' onClick={() => {
+                        addProductCart()
+                        }}> {statusCart ? "AÑADIDO" : "AÑADIR"} AL CARRITO</button>
                 </div>
             </Container>
         </div>

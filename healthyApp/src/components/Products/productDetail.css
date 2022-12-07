@@ -9,6 +9,7 @@
     width: 200px;
     height: 168px;
     margin: auto;
+    position: relative;
     /*border: var(--PrincipalColor) solid 3px;*/
 }
 
@@ -16,7 +17,7 @@
     width: 40px;
     height: 40px;
     position: absolute;
-    margin-top: 29.7%;
+    margin-top: 70%;
     margin-left: -4.2%;
     border: none;
     background: var(--PrincipalColor);
