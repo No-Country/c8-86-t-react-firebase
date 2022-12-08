@@ -279,7 +279,7 @@ const Home = () => {
                                         </>
                                         :
                                         <>
-                                            <h2>Encontremos lo que necesitas !</h2>
+                                            <h2 className='w-100 ms-5'>Encontremos lo que necesitas !</h2>
 
                                             <form className='Home__search__bar' onSubmit={handleSubmit(search)}>
                                                 <input type="text" placeholder='¿Qué está buscando?' {...register('search')} />
