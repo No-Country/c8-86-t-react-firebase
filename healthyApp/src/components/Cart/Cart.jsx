@@ -9,6 +9,8 @@ import Arrow from '../../assets/arrow-back.svg'
 import { useNavigate } from 'react-router-dom'
 import { async } from '@firebase/util'
 import { useAuth } from '../../context/AuthContext'
+import Modal from '../../components/Profile/Modal/Modal'
+
 
 const Cart = () => {
     const navigate = useNavigate()
@@ -48,6 +50,7 @@ const Cart = () => {
     const { user } = useAuth()
     const [cart, setCart] = useState()
     const [modified, setModified] = useState()
+    const [total, setTotal] = useState()
 
     //Seteo inicial del carrito, por si ya habia agregado productos
 
@@ -55,12 +58,37 @@ const Cart = () => {
     useEffect(() => {
         console.log('Actualizado cart')
         let cartInStorage = JSON.parse(localStorage.getItem('cart'))
+        let totalOfCart = 0
         if (cartInStorage?.userInCart?.uid === user.uid) {
             setCart(cartInStorage)
+            cartInStorage?.productsAdd?.map(product => {
+                totalOfCart += (product?.product?.price * product?.quantity)
+            })
+            setTotal(totalOfCart)
         }
     }, [modified])
 
     console.log(cart)
+    console.log(total)
+
+    //Funcion checkout
+    const [checkoutModal, setCheckoutModal] = useState(false)
+
+    const checkout = () => {
+        let cartInStorage = JSON.parse(localStorage.getItem('cart'))
+        if (cartInStorage?.userInCart?.uid === user.uid) {
+            localStorage.removeItem('cart')
+            setModified(!modified)
+            setCheckoutModal(true)
+            setTimeout(() => {
+                setCheckoutModal(false)
+            }, 3000);
+            setTimeout(() => {
+                navigate('/')
+            }, 4000);
+
+        }
+    }
 
     //Función para agregar mas unidades al carrito
 
@@ -68,15 +96,15 @@ const Cart = () => {
         let cartInStorage = JSON.parse(localStorage.getItem('cart'))
         if (cartInStorage?.userInCart?.uid === user.uid) {
             let index = cartInStorage?.productsAdd?.findIndex(product => product?.id === id)
-            
+
             let plusItem = {
                 id: cartInStorage?.productsAdd[index].id,
                 product: cartInStorage?.productsAdd[index].product,
                 quantity: cartInStorage?.productsAdd[index].quantity + 1
             }
-            
-            cartInStorage?.productsAdd?.splice(index,1,plusItem)
-            localStorage.setItem('cart',JSON.stringify(cartInStorage))
+
+            cartInStorage?.productsAdd?.splice(index, 1, plusItem)
+            localStorage.setItem('cart', JSON.stringify(cartInStorage))
         }
         setModified(!modified)
     }
@@ -84,21 +112,21 @@ const Cart = () => {
         let cartInStorage = JSON.parse(localStorage.getItem('cart'))
         if (cartInStorage?.userInCart?.uid === user.uid) {
             let index = cartInStorage?.productsAdd?.findIndex(product => product?.id === id)
-            if(cartInStorage?.productsAdd[index].quantity>1){
+            if (cartInStorage?.productsAdd[index].quantity > 1) {
                 let plusItem = {
                     id: cartInStorage?.productsAdd[index].id,
                     product: cartInStorage?.productsAdd[index].product,
                     quantity: cartInStorage?.productsAdd[index].quantity - 1
                 }
-                
-                cartInStorage?.productsAdd?.splice(index,1,plusItem)
-                localStorage.setItem('cart',JSON.stringify(cartInStorage))
+
+                cartInStorage?.productsAdd?.splice(index, 1, plusItem)
+                localStorage.setItem('cart', JSON.stringify(cartInStorage))
             }
-            else if(cartInStorage?.productsAdd[index].quantity ===1){
-                cartInStorage?.productsAdd?.splice(index,1)
-                localStorage.setItem('cart',JSON.stringify(cartInStorage))
+            else if (cartInStorage?.productsAdd[index].quantity === 1) {
+                cartInStorage?.productsAdd?.splice(index, 1)
+                localStorage.setItem('cart', JSON.stringify(cartInStorage))
             }
-            
+
         }
         setModified(!modified)
     }
@@ -112,35 +140,56 @@ const Cart = () => {
                 </div>
             </header>
             <Container>
+                {
+                    checkoutModal &&
+                    <Modal
+                        checkout={checkoutModal}
+                    />
+                }
+
                 <h2 className='title_cart mt-3 ms-3'>Mi Carrito</h2>
+                {
+                    cart ?
+                        <div className='listInCart'>
+                            {
+                                cart?.productsAdd?.map(product => (
+                                    <div className='listInCart__Item' key={product?.id}>
+                                        <div className='addImg'>
+                                            <div className='containerImage'>
+                                                <img src={product?.product?.imageUrl} alt="product-image" />
+                                            </div>
+                                            <ul>
+                                                <li>{product?.product?.name}</li>
+                                                <li><b> $ {product?.product?.price}</b></li>
+                                            </ul>
+                                        </div>
+                                        <div className='addCount'>
+                                            <div className='inputs'>
+                                                <button onClick={() => plus(product.id)} >+</button>
+                                                <p>{product?.quantity}</p>
+                                                <button onClick={() => minus(product.id)} >-</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))
+                            }
 
-                <div className='listInCart'>
-                    {
-                        cart?.productsAdd?.map(product => (
-                            <div className='listInCart__Item' key={product?.id}>
-                                <div className='addImg'>
-                                    <div className='containerImage'>
-                                        <img src={product?.product?.imageUrl} alt="product-image" />
-                                    </div>
-                                    <ul>
-                                        <li>{product?.product?.name}</li>
-                                        <li><b> $ {product?.product?.price}</b></li>
-                                    </ul>
-                                </div>
-                                <div className='addCount'>
-                                    <div className='inputs'>
-                                        <button onClick={() => plus(product.id)} >+</button>
-                                        <p>{product?.quantity}</p>
-                                        <button onClick={() => minus(product.id)} >-</button>
-                                    </div>
-                                </div>
+                            <div className='cart__total'>
+                                <h5>Total: ${total}</h5>
                             </div>
-                        ))
-                    }
 
 
-                    <button className='color border border-0 m-auto w-100'>CheckOut</button>
-                </div>
+                            <button className='color border border-0 m-auto w-100' onClick={checkout}>CheckOut</button>
+                        </div>
+                        :
+                            <div className='cart__empty'>
+                                <h4>El carrito está vacio</h4>
+                            </div>
+
+                    
+                }
+
+
             </Container>
         </>
     )
