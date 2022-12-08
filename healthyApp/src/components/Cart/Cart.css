@@ -98,3 +98,15 @@
     border: none;
     background: #C8DEBD;
 }
+
+.cart__total{
+    align-self: flex-end;
+}
+
+.cart__empty{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
